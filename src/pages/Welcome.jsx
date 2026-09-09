@@ -5,7 +5,7 @@ export default function Welcome() {
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-[#a91f46] px-4">
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 text-center">
-                Bienvenido a mi App
+                Bienvenido a Silpaza
             </h1>
             <p className="text-white text-lg md:text-xl mb-8 text-center">
                 Por favor, inicia sesión o regístrate para continuar.

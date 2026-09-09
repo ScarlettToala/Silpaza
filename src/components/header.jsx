@@ -1,122 +1,306 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import NavLinks from "./NavLinks";
-import { FaInfoCircle } from "react-icons/fa";
+import { FaInfoCircle, FaBars, FaTimes } from "react-icons/fa";
 
-export default function Header({ logoImage, info, onLogout, user }) {
+export default function Header({ logoImage, onLogout, user }) {
   const [menuAbierto, setMenuAbierto] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  // Cargar imágenes antes de mostrar el header
-  useEffect(() => {
-    const imgLogo = new Image();
-    const imgInfo = new Image();
+  /* =========================
+     CARGAR IMÁGENES
+  ========================= */
 
-    let loadedCount = 0;
-    const totalImages = 2;
+useEffect(() => {
+  const imgLogo = new Image();
 
-    imgLogo.src = logoImage;
-    imgInfo.src = info;
+  imgLogo.src = logoImage;
 
-    const handleLoad = () => {
-      loadedCount += 1;
-      if (loadedCount === totalImages) {
-        setLoading(false);
-      }
-    };
+  imgLogo.onload = () => {
+    setLoading(false);
+  };
 
-    imgLogo.onload = handleLoad;
-    imgInfo.onload = handleLoad;
-  }, [logoImage, info]);
+  imgLogo.onerror = () => {
+    setLoading(false);
+  };
+}, [logoImage]);
 
-  // Nueva función de logout con confirmación
+
+  /* =========================
+     CERRAR SESIÓN
+  ========================= */
+
   const handleLogoutConfirm = () => {
-    const confirmar = window.confirm("¿Estás seguro de que quieres cerrar sesión?");
+    const confirmar = window.confirm(
+      "¿Estás seguro de que quieres cerrar sesión?"
+    );
+
     if (confirmar) {
       onLogout();
     }
   };
 
+
+  /* =========================
+     LOADING
+  ========================= */
+
   if (loading) {
     return (
-      <header className="bg-[#F480AD] text-white shadow-md px-10 py-7 flex justify-center items-center">
-        <p className="text-lg font-bold">Cargando header...</p>
+      <header className="bg-[#F480AD] text-white shadow-md px-6 py-7 flex justify-center items-center">
+        <p className="text-lg font-bold">
+          Cargando header...
+        </p>
       </header>
     );
   }
 
-  return (
-    <header className="bg-[#F480AD] text-white shadow-md px-7 py-7 relative">
-      <div className="container mx-auto flex items-center justify-between">
 
-        {/* Navegación izquierda (desktop) */}
-        <nav className="hidden md:flex items-center gap-8" role="navigation" aria-label="Menú principal">
-          <NavLinks textColor="text-[#0C0808]" textColorHover="hover:text-black" />
+  return (
+    <header className="bg-[#F480AD] text-white shadow-md px-4 sm:px-6 xl:px-7 py-5 sm:py-6 relative">
+
+      <div className="container mx-auto flex items-center justify-between min-h-[80px]">
+
+
+        {/* =========================
+            NAVEGACIÓN ESCRITORIO
+        ========================= */}
+
+        <nav
+          className="hidden xl:flex items-center gap-4 2xl:gap-8"
+          role="navigation"
+          aria-label="Menú principal"
+        >
+          <NavLinks
+            textColor="text-[#0C0808]"
+            textColorHover="hover:text-black"
+          />
         </nav>
 
-        {/* Logo centrado */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 bg-white rounded-full shadow-lg p-3">
+
+        {/* =========================
+            LOGO CENTRADO
+        ========================= */}
+
+        <Link
+          to="/home"
+          aria-label="Ir a la página de inicio"
+          className="
+            absolute
+            left-1/2
+            top-1/2
+            -translate-x-1/2
+            -translate-y-1/2
+            bg-white
+            rounded-full
+            shadow-lg
+            p-2
+            sm:p-3
+            z-10
+          "
+        >
           <img
             src={logoImage}
             alt="Logo Corporativo de Silpaza"
-            className="w-20 h-20 object-contain rounded-full"
+            fetchpriority="high"
+            className="
+              w-16
+              h-16
+              sm:w-20
+              sm:h-20
+              object-contain
+              rounded-full
+            "
           />
-        </div>
+        </Link>
 
-        {/* Iconos derecha (desktop) */}
-        <div className="hidden md:flex space-x-6 items-center">
-          {/*<img src={info} alt="Info" className="w-8 h-8 cursor-pointer" />*/}
-          <FaInfoCircle className="text-xl text-black hover:text-white transition cursor-pointer" />
+
+        {/* =========================
+            ICONOS DERECHA DESKTOP
+        ========================= */}
+
+        <div className="hidden xl:flex items-center gap-4 2xl:gap-6">
+
+          <FaInfoCircle
+            className="
+              text-xl
+              text-black
+              hover:text-white
+              transition
+              cursor-pointer
+            "
+          />
+
+
           {user ? (
-          <button
-            onClick={handleLogoutConfirm} // <--- Usamos la función con confirmación
-            aria-label="Cerrar sesión"
-            className="flex items-center gap-2 text-[#0C0808] transition cursor-pointer"
-          >
-            <span className="relative text-[#0C0808] font-[Open_Sans] text-lg
-                            after:absolute after:left-0 after:bottom-0 after:h-[2px]
-                            after:w-0 after:bg-white after:transition-all
-                            hover:after:w-full transition">Cerrar sesión</span>
-          </button>
+
+            <button
+              onClick={handleLogoutConfirm}
+              aria-label="Cerrar sesión"
+              className="
+                relative
+                text-[#0C0808]
+                font-[Open_Sans]
+                text-base
+                2xl:text-lg
+                whitespace-nowrap
+
+                after:absolute
+                after:left-0
+                after:bottom-0
+                after:h-[2px]
+                after:w-0
+                after:bg-white
+                after:transition-all
+
+                hover:after:w-full
+              "
+            >
+              Cerrar sesión
+            </button>
+
           ) : (
-          <Link to="/login" className="hover:font-bold transition text-black">Iniciar sesión</Link>
-          )
-          }
+
+            <Link
+              to="/login"
+              className="
+                text-black
+                font-[Open_Sans]
+                text-base
+                2xl:text-lg
+                whitespace-nowrap
+                hover:text-white
+                transition
+              "
+            >
+              Iniciar sesión
+            </Link>
+
+          )}
+
         </div>
 
-        {/* Botón hamburguesa (mobile) */}
+
+        {/* =========================
+            BOTÓN HAMBURGUESA
+        ========================= */}
+
         <button
-          className="md:hidden text-2xl"
+          className="
+            xl:hidden
+            ml-auto
+            text-2xl
+            text-black
+            hover:text-white
+            transition
+            p-2
+          "
           onClick={() => setMenuAbierto(!menuAbierto)}
           aria-label={menuAbierto ? "Cerrar menú" : "Abrir menú"}
           aria-expanded={menuAbierto}
           aria-controls="menu-movil"
         >
-          ☰
+          {menuAbierto ? <FaTimes /> : <FaBars />}
         </button>
+
       </div>
 
-      {/* Menú móvil */}
+
+      {/* =========================
+          MENÚ MÓVIL / TABLET
+      ========================= */}
+
       {menuAbierto && (
-        <nav className="absolute top-full left-6 mt-3 w-48 bg-white text-pink-600 rounded-xl shadow-lg p-4 flex flex-col gap-3 md:hidden z-50"
+
+        <nav
+          id="menu-movil"
+          className="
+            absolute
+            top-full
+            left-4
+            right-4
+            mt-2
+
+            bg-white
+            text-black
+
+            rounded-2xl
+            shadow-xl
+
+            p-5
+
+            flex
+            flex-col
+            gap-4
+
+            xl:hidden
+            z-50
+          "
           aria-label="Menú móvil"
         >
-          <NavLinks onClick={() => setMenuAbierto(false)}
-            textColor="text-pink-600"
+
+          <NavLinks
+            onClick={() => setMenuAbierto(false)}
+            textColor="text-[#A4133C]"
             textColorHover="hover:text-black"
           />
 
-          <hr />
 
-          <button
-            onClick={handleLogoutConfirm} // <--- confirmación también en móvil
-            aria-label="Cerrar sesión"
-            className="text-left hover:text-black transition font-[Open_Sans]"
-          >
-            Cerrar sesión
-          </button>
+          <hr className="border-gray-200" />
+
+
+          {/* INFO */}
+
+          <div className="flex items-center gap-2 text-gray-700">
+            <FaInfoCircle />
+            <span>Información</span>
+          </div>
+
+
+          {/* LOGIN / LOGOUT */}
+
+          {user ? (
+
+            <button
+              onClick={() => {
+                setMenuAbierto(false);
+                handleLogoutConfirm();
+              }}
+              aria-label="Cerrar sesión"
+              className="
+                text-left
+                text-[#A4133C]
+                font-[Open_Sans]
+                font-semibold
+                hover:text-black
+                transition
+              "
+            >
+              Cerrar sesión
+            </button>
+
+          ) : (
+
+            <Link
+              to="/login"
+              onClick={() => setMenuAbierto(false)}
+              className="
+                text-[#A4133C]
+                font-[Open_Sans]
+                font-semibold
+                hover:text-black
+                transition
+              "
+            >
+              Iniciar sesión
+            </Link>
+
+          )}
+
         </nav>
+
       )}
+
     </header>
   );
 }

@@ -1,48 +1,99 @@
 import React from "react";
-import { useNavigate, Link } from "react-router-dom";
-import galletas from '../assets/galletas.webp'
+import { Link } from "react-router-dom";
 
+function Destacado({ producto }) {
+  if (!producto) return null;
 
-function Destacado({ backgroundImage, frase, descripcion }) {
-    return (
-        <div className="w-full bg-[#E9EDC9] flex flex-col items-center px-4 py-8 md:py-12">
-            {/* Título principal */}
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-leckerli font-bold mb-8 text-center text-gray-800 drop-shadow-md">
-                Lo más vendido
-            </h2>
+  return (
+    <section className="w-full bg-[#E9EDC9] py-16 px-6">
 
-            {/* Contenedor de imagen y texto */}
-            <div className="flex flex-col md:flex-row items-center md:items-start gap-6 max-w-6xl w-full">
+      <div className="max-w-6xl mx-auto">
 
-                {/* Imagen */}
-                {backgroundImage && (
-                    <Link to="/productos">
-                        <img
-                            src={galletas}
-                            alt="Galletas artesanales"
-                            className="w-full max-w-sm md:max-w-md rounded-lg shadow-lg hover:scale-105 transition duration-300"
-                        />
-                    </Link>
-                )}
+        {/* TÍTULO */}
 
-                {/* Texto */}
-                <div className="text-center md:text-left md:max-w-md">
-                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-leckerli  mb-4">
-                        {frase}
-                    </h3>
-                    <p className="text-gray-700 text-base sm:text-lg mb-4">
-                        {descripcion}
-                    </p>
-                    <Link
-                        to="/detalleProducto"
-                        className="inline-block px-6 py-2 bg-[#AE043D] text-white font-semibold rounded-lg shadow-md hover:bg-pink-700 transition-colors duration-300"
-                    >
-                        Ver más
-                    </Link>
-                </div>
-            </div>
+        <div className="text-center mb-12">
+
+          <p className="uppercase tracking-[0.25em] text-sm text-gray-600 mb-3">
+            Nuestro favorito
+          </p>
+
+          <h2 className="text-4xl md:text-5xl font-leckerli">
+            Lo más vendido
+          </h2>
+
         </div>
-    );
+
+
+        {/* PRODUCTO DESTACADO */}
+
+        <div className="flex flex-col md:flex-row items-center gap-10">
+
+          {/* IMAGEN */}
+
+          <Link
+            to={`/detalleProducto/${producto.id}`}
+            className="w-full md:w-1/2 overflow-hidden rounded-2xl"
+          >
+
+            <img
+              src={producto.image}
+              alt={producto.nombre}
+              loading="lazy"
+              className="
+                w-full
+                h-[400px]
+                object-cover
+                hover:scale-105
+                transition
+                duration-500
+              "
+            />
+
+          </Link>
+
+
+          {/* INFORMACIÓN */}
+
+          <div className="w-full md:w-1/2 text-center md:text-left">
+
+            <h3 className="text-3xl md:text-4xl font-leckerli mb-5">
+              {producto.nombre}
+            </h3>
+
+            <p className="text-gray-700 text-lg leading-relaxed mb-7">
+              {producto.descripcion}
+            </p>
+
+
+            {/* BOTÓN */}
+
+            <Link
+              to={`/detalleProducto/${producto.id}`}
+              className="
+                inline-block
+                px-7
+                py-3
+                bg-[#AE043D]
+                text-white
+                font-semibold
+                rounded-full
+                hover:bg-[#8f0332]
+                hover:scale-105
+                transition
+              "
+            >
+              Descubrir producto
+            </Link>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+  );
 }
 
 export default Destacado;
+

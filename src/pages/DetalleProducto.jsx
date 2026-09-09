@@ -1,15 +1,30 @@
-import { useNavigate } from "react-router-dom";
-import { useRef, useState } from "react";
-import ContactForm from "../components/ContactForm";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect } from "react";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import Alergenos from "../components/alergenos";
+import {
+FaPhoneAlt
+} from "react-icons/fa";
 
-import logoImage from '../assets/logoo.webp';
-import info from '../assets/info.webp';
-import galletas from '../assets/galletas.webp';
+import { categorias } from "../data/productosData";
+
+import logoImage from "../assets/img/logooDEF.webp";
 
 function DetalleProducto({ user, setUser }) {
+
   const navigate = useNavigate();
+
+  // Leemos el id de la URL
+  const { id } = useParams();
+
+  useEffect(() => {
+  window.scrollTo(0, 0);
+}, [id]);
+
+  /* =========================
+     CERRAR SESIÓN
+  ========================= */
 
   const handleLogout = () => {
     localStorage.removeItem("userData");
@@ -17,74 +32,292 @@ function DetalleProducto({ user, setUser }) {
     navigate("/");
   };
 
-  const [numero, setNumero] = useState(0);
-  const inputRef = useRef(null);
 
-  return (
-    <>
-      <div className="bg-amber-50 min-h-screen">
+  /* =========================
+     BUSCAR PRODUCTO
+  ========================= */
+
+  const producto = categorias
+    .flatMap((categoria) => categoria.productos)
+    .find((producto) => producto.id === Number(id));
+
+
+  /* =========================
+     PRODUCTO NO ENCONTRADO
+  ========================= */
+
+  if (!producto) {
+    return (
+      <div className="min-h-screen bg-[#fdfaf3] flex flex-col">
+
         <Header
           logoImage={logoImage}
-          info={info}
           onLogout={handleLogout}
           user={user}
         />
 
-        <div className="py-12 px-4 max-w-screen-lg mx-auto">
+        <main className="flex-1 flex flex-col items-center justify-center px-6">
 
-          {/* Título */}
-          <h1 className="text-3xl md:text-4xl font-bold text-center text-amber-700 mb-6">
-            Cookies Artesanales de Chocolate 🍪
+          <h1 className="text-3xl font-bold text-gray-800 mb-4">
+            Producto no encontrado
           </h1>
 
-          {/* Descripción breve */}
-          <p className="max-w-2xl mx-auto text-center text-gray-700 mb-12">
-            Crujientes por fuera y suaves por dentro, nuestras cookies están 
-            elaboradas con chocolate negro de alta calidad y mantequilla artesanal.
-            Perfectas para acompañar un café o darte un capricho dulce.
-          </p>
+          <button
+            onClick={() => navigate("/productos")}
+            className="
+              bg-[#A4133C]
+              text-white
+              px-6
+              py-3
+              rounded-full
+              font-semibold
+              hover:bg-[#C72A55]
+              transition
+            "
+          >
+            Ver productos
+          </button>
 
-          {/* Contenedor principal */}
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-
-            {/* Imagen */}
-            <div className="flex justify-center">
-              <img
-                src={galletas}
-                alt="Galletas artesanales de chocolate"
-                className="w-full max-w-sm md:max-w-md rounded-xl shadow-lg hover:scale-105 transition duration-300"
-              />
-            </div>
-
-            {/* Información adicional */}
-            <div className="text-center md:text-left space-y-4">
-
-              <h2 className="text-xl font-semibold text-amber-600">
-                ¿Por qué te encantarán?
-              </h2>
-
-              <ul className="text-gray-700 space-y-2">
-                <li>✔ Hechas a mano cada día</li>
-                <li>✔ Ingredientes naturales</li>
-                <li>✔ Sin conservantes</li>
-                <li>✔ Sabor intenso a chocolate</li>
-              </ul>
-
-              {/* Botón volver */}
-              <button
-                onClick={() => navigate(-1)}
-                className="mt-6 text-black italic font-semibold hover:underline transition"
-              >
-                ← Volver a la galería
-              </button>
-
-            </div>
-          </div>
-        </div>
+        </main>
 
         <Footer logo={logoImage} />
+
       </div>
-    </>
+    );
+  }
+
+
+  /* =========================
+     PÁGINA DEL PRODUCTO
+  ========================= */
+
+  return (
+
+    <div className="bg-[#fdfaf3] min-h-screen flex flex-col">
+
+      <Header
+        logoImage={logoImage}
+        onLogout={handleLogout}
+        user={user}
+      />
+
+
+      <main className="flex-1 py-3 md:py-6 px-4 max-w-screen-lg mx-auto w-full">
+
+        {/* CONTENEDOR PRINCIPAL */}
+
+        <section
+  className="
+    grid
+    grid-cols-1
+    md:grid-cols-2
+
+    bg-white
+    rounded-3xl
+    shadow-lg
+    overflow-hidden
+  "
+>
+
+  {/* =========================
+      IMAGEN
+  ========================= */}
+
+  <div className="
+  h-[350px]
+  md:h-full
+  min-h-[450px]
+  relative
+">
+  <img
+    src={producto.image}
+    alt={producto.nombre}
+    className="
+      w-full
+      h-full
+      object-cover
+      rounded-2xl
+      shadow-2xl
+    "
+  />
+  
+  {/* EFECTO GLASS EN LA PARTE INFERIOR */}
+  <div className="
+    absolute
+    bottom-0
+    left-0
+    right-0
+    h-32
+    bg-gradient-to-t
+    from-black/60
+    to-transparent
+    rounded-b-2xl
+  ">
+    <p style={{
+        fontFamily: "Leckerli One" 
+      }}
+      className="
+      absolute
+      bottom-4
+      left-6
+      text-white
+      text-5xl
+      md:text-3xl
+    ">
+      {producto.nombre}
+    </p>
+  </div>
+</div>
+
+
+  {/* =========================
+      INFORMACIÓN
+  ========================= */}
+
+  <div className="
+    p-8
+    md:p-12
+    space-y-6
+    flex
+    flex-col
+    justify-center
+  ">
+
+    {/* DESCRIPCIÓN LARGA */}
+
+    {producto.descripcionLarga && (
+      <p className="
+        text-gray-700
+        leading-relaxed
+      ">
+        {producto.descripcionLarga}
+      </p>
+    )}
+
+
+    {/* POR QUÉ TE ENCANTARÁ */}
+
+    {producto.caracteristicas && (
+      <div>
+
+        <h2 className="
+          text-xl
+          font-semibold
+          text-[#A4133C]
+          mb-4
+        ">
+          ¿Por qué te encantará?
+        </h2>
+
+        <ul className="space-y-3 text-gray-700">
+
+          {producto.caracteristicas.map(
+            (caracteristica, index) => (
+
+              <li
+                key={index}
+                className="flex items-center gap-2"
+              >
+                <span className="text-[#A4133C]">
+                  ✓
+                </span>
+
+                {caracteristica}
+
+              </li>
+
+            )
+          )}
+
+        </ul>
+
+      </div>
+    )}
+
+
+    {/* ALÉRGENOS */}
+
+    {producto.alergenos && (
+      <div>
+
+        <h2 className="
+          text-xl
+          font-semibold
+          text-gray-800
+          mb-3
+        ">
+          Alérgenos
+        </h2>
+
+        <Alergenos lista={producto.alergenos} />
+
+      </div>
+    )}
+
+
+    {/* BOTÓN PEDIDO */}
+
+    <a
+      href="tel:+34652345678"
+      className="
+    inline-flex
+    items-center
+    justify-center
+    gap-2
+
+    bg-[#A4133C]
+    text-white
+
+    px-8
+    py-4
+
+    rounded-full
+
+    font-semibold
+
+    transition
+
+    hover:bg-[#C72A55]
+    hover:scale-105
+
+    focus:outline-none
+    focus:ring-4
+    focus:ring-[#A4133C]/30
+      "
+    >
+      <FaPhoneAlt  className="text-xl" aria-hidden="true"/> Llamar para pedir
+    </a>
+
+
+    {/* VOLVER A PRODUCTOS */}
+
+    <button
+      onClick={() => navigate("/productos")}
+      className="
+        self-end
+        text-[#A4133C]
+        font-semibold
+        mt-2
+
+        transition-all
+        hover:underline
+        hover:translate-x-1
+      "
+    >
+      Volver a productos →
+    </button>
+
+  </div>
+
+</section>
+
+        
+      </main>
+
+
+      <Footer logo={logoImage} />
+
+    </div>
   );
 }
 

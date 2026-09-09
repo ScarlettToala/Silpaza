@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import ContactForm from "../components/ContactForm";
-import Header from "../components/header";
-import Footer from "../components/footer";
+import Header from "../components/header.jsx";
+import Footer from "../components/footer.jsx";
+import FraseImagen from "../components/Banner.jsx";
 
-import logoImage from '../assets/logoo.webp';
-import info from '../assets/info.webp';
+import logoImage from '../assets/img/logooDEF.webp';
+import aboutBackground from '../assets/img/galletas.webp'; // <-- añade una imagen de fondo bonita
 
 function SobreNosotros({ user, setUser }) {
   const navigate = useNavigate();
@@ -16,97 +17,82 @@ function SobreNosotros({ user, setUser }) {
     navigate("/");
   };
 
-  // useState
-  const [numero, setNumero] = useState(0);
-
-  // useRef
-  const inputRef = useRef(null);
-
-  const ponerFocus = () => {
-    inputRef.current.focus();
-  };
-
   return (
     <>
-    <div className="bg-amber-50">
-          <Header
-        logoImage={logoImage}
-        info={info}
-        onLogout={handleLogout}
-        user={user}
-      />
-    
-    <div className="min-h-screen py-12 px-4 max-w-screen-lg mx-auto">
+      <div className="bg-amber-50">
+        <Header
+          logoImage={logoImage}
+          onLogout={handleLogout}
+          user={user}
+        />
 
-      {/* Título */}
-      <h1 className="text-3xl md:text-4xl font-bold text-center text-amber-600 mb-8">
-        Sobre Nosotros
-      </h1>
+        {/* SECCIÓN HERO CON FRASE E IMAGEN */}
+        <FraseImagen
+          eslogan="Sobre nosotros"
+          backgroundImage={aboutBackground}
+          frase="Hechos con amor, recordados con sonrisas"
+          descripcion="Descubre la historia, la pasión y el cariño que ponemos en cada creación."
+        />
 
-      {/* Descripción */}
-      <p className="max-w-2xl mx-auto text-center text-gray-700 mb-12">
-        Somos una empresa comprometida con brindar la mejor experiencia a
-        nuestros usuarios. A continuación puedes ver algunos ejemplos del uso
-        de <strong>useState</strong> y <strong>useRef</strong> en React.
-      </p>
+        {/* CONTENIDO PRINCIPAL */}
+        <div className="min-h-screen py-16 px-6 max-w-screen-lg mx-auto">
 
-      {/* Contenedor principal */}
-      <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
-
-        {/* useState */}
-        <section className="bg-white rounded-xl shadow-md p-8 flex flex-col items-center gap-6" aria-labelledby="titulo-usestate">
-          <h2 id="titulo-usestate" className="text-xl font-semibold text-yellow-800">
-            Ejemplo useState
-          </h2>
-
-          <p className="text-lg">
-            Contador: <span className="font-bold text-amber-500">{numero}</span>
-          </p>
-
-          <button
-            onClick={() => setNumero(numero + 1)}
-            className="bg-orange-700 hover:bg-orange-800 text-white px-6 py-3 rounded-lg transition active:scale-95"
+          {/* Título */}
+          <h1
+            style={{ fontFamily: '"Leckerli One", cursive' }}
+            className="text-4xl md:text-5xl text-center text-[#AE043D] mb-8"
           >
-            Sumar
-          </button>
-        </section>
+            Nuestra historia
+          </h1>
 
-        {/* useRef */}
-        <section className="bg-white rounded-xl shadow-md p-8 flex flex-col gap-6" aria-labelledby="titulo-useref">
-          <h2 id="titulo-useref" className="text-xl font-semibold text-blue-600 text-center">
-            Ejemplo useRef
-          </h2>
-          <form action="GET">
-            <label>Escribe un ejemplo de texto
-            <input
-              ref={inputRef}
-              type="text"
-              placeholder="Escribe aquí"
-              aria-label="Campo de texto para ejemplo useRef"
-              className="w-full border border-blue-300 rounded-lg px-4 py-3
-              focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-            </label>
-          </form>
-          <button
-            onClick={ponerFocus}
-            className="bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg transition active:scale-95"
-            aria-label="Mover foco al input"
-          >
-            Hacer focus al input
-          </button>
-        </section>
+          {/* Descripción mejorada con más jerarquía visual */}
+          <div className="max-w-4xl mx-auto text-center text-gray-700 space-y-6 text-lg leading-relaxed">
+
+            <p className="text-2xl md:text-3xl font-semibold text-gray-800">
+              En Silpaza creemos que los mejores momentos se comparten alrededor de algo dulce. 🍰
+            </p>
+
+            <p>
+              Nacimos con la ilusión de crear mucho más que pasteles: queremos formar parte de esos momentos
+              que recordamos con una sonrisa. Un cumpleaños, una reunión con amigos, una celebración especial
+              o simplemente una tarde en buena compañía.
+            </p>
+
+            <div className="bg-white/70 p-8 rounded-3xl shadow-md border border-amber-200">
+              <p className="mb-2">
+                <strong>Más de 10 años de experiencia</strong> nos avalan. Trabajamos con auténticos
+                profesionales de la repostería y seleccionamos ingredientes de la mejor calidad para
+                conseguir productos deliciosos, cuidados y elaborados con cariño.
+              </p>
+            </div>
+
+            <p>
+              Nos gusta cuidar cada detalle, desde el momento en que entras por nuestra puerta
+              hasta que te llevas tu pedido. Y cuando se trata de una ocasión especial,
+              hacemos realidad tus ideas con{' '}
+              <strong>pedidos personalizados pensados para superar tus expectativas.</strong>
+            </p>
+
+            <p className="font-semibold text-[#AE043D] text-xl">
+              Porque para nosotros no se trata solo de preparar algo dulce.
+              <br />
+              Se trata de crear momentos que quieras recordar.
+            </p>
+
+            {/* Botón de acción adicional */}
+            <div className="pt-4">
+              <a
+                href="/productos"
+                className="inline-block bg-[#AE043D] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#C72A55] transition shadow-md"
+              >
+                Descubre nuestros productos
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <Footer logo={logoImage} />
       </div>
-
-      {/* Formulario */}
-      <div className="mt-20 max-w-md mx-auto">
-        <ContactForm />
-      </div>
-
-      
-    </div>
-    <Footer logo={logoImage} />
-    </div>
     </>
   );
 }

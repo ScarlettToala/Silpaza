@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaInstagram, FaEnvelope, FaPhone } from "react-icons/fa";
-import '../styles/Footer.scss'; // <-- enlazamos el archivo Sass
+import {
+  FaInstagram,
+  FaEnvelope,
+  FaPhone,
+} from "react-icons/fa";
+import "../styles/Footer.scss";
 
 function Footer({ logo }) {
   const [loading, setLoading] = useState(true);
@@ -9,7 +13,9 @@ function Footer({ logo }) {
   useEffect(() => {
     const img = new Image();
     img.src = logo;
+
     img.onload = () => setLoading(false);
+    img.onerror = () => setLoading(false);
   }, [logo]);
 
   if (loading) {
@@ -23,30 +29,66 @@ function Footer({ logo }) {
   return (
     <footer className="footer" role="contentinfo">
       <div className="footer-container">
-    
+
         {/* Navegación */}
-        <nav className="footer-nav" aria-label="Enlaces del pie de página">
+        <nav
+          className="footer-nav"
+          aria-label="Enlaces del pie de página"
+        >
           <Link to="/sobrenosotros">Sobre Nosotros</Link>
           <Link to="/productos">Productos</Link>
           <Link to="/servicios">Servicios</Link>
-          <a href="#">Contacto</a>
+          <a href="tel:+34652345678">Contacto</a>
         </nav>
 
         {/* Logo */}
         <div className="footer-logo">
-          <img src={logo} alt="Logo Corporativo de Silpaza" />
+          <img src={logo} alt="Logo de Silpaza" />
         </div>
 
-        {/* Información + contacto */}
+        {/* Redes y contacto */}
         <div className="footer-contact">
+
           <div className="icons">
-            <a href="https://instagram.com/silpaza" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
-            <a href="mailto:silpaza@ejemplo.com"><FaEnvelope /></a>
-            <a href="tel:+34652345678"><FaPhone /></a>
+            <a
+              href="https://instagram.com/silpaza"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+            >
+              <FaInstagram />
+            </a>
+
+            <a
+              href="mailto:silpaza@ejemplo.com"
+              aria-label="Correo electrónico"
+            >
+              <FaEnvelope />
+            </a>
+
+            <a
+              href="tel:+34652345678"
+              aria-label="Teléfono"
+            >
+              <FaPhone />
+            </a>
           </div>
-          <p>&copy; Silpaza 2025</p>
-          <p>Author: Scarlett Toala</p>
-          <p>Última fecha: 13/10/2025</p>
+
+          <p>© Silpaza 2025 · Diseñado por Scarlett Toala</p>
+
+        </div>
+
+        {/* Legal */}
+        <div className="footer-legal">
+          <Link to="/aviso-legal">Aviso legal</Link>
+          <span>·</span>
+          <Link to="/politica-privacidad">
+            Política de privacidad
+          </Link>
+          <span>·</span>
+          <Link to="/politica-cookies">
+            Política de cookies
+          </Link>
         </div>
 
       </div>
@@ -55,3 +97,4 @@ function Footer({ logo }) {
 }
 
 export default Footer;
+

@@ -1,22 +1,32 @@
 import { useState, useEffect } from "react";
-import Footer from '../components/footer.jsx'
-import ImagenCollage from '../components/imagenCollage.jsx'
-import Header from '../components/header.jsx'
-import FraseImagen from '../components/fraseImagen.jsx'
 import { useNavigate } from "react-router-dom";
 
-import logoImage from '../assets/logoo.webp'
+import Header from "../components/header.jsx";
+import Footer from "../components/footer.jsx";
+import FraseImagen from "../components/Banner.jsx";
+import Servicios from "../components/servicios.jsx";
+import ImagenCollage from "../components/imagenCollage.jsx";
+import Destacado from "../components/destacarproducto.jsx";
+import SobreNosotros from "../components/SobreNosotros.jsx";
 
-import info from '../assets/info.webp'
-import tarta2 from '../assets/tarta2.webp'
-import img1 from '../assets/tarta.webp'
-import img2 from '../assets/tarta.webp'
-import img3 from '../assets/tarta.webp'
-import galletas from '../assets/galletas.webp'
-import Destacado from '../components/destacarproducto.jsx'
+import logoImage from "../assets/img/logooDEF.webp";
+import tarta2 from "../assets/img/tarta2DEF.webp";
+import img1 from "../assets/img/CheesecakeNormalDEF.webp";
+import img2 from "../assets/img/Receta-lemon-pie-tarta-de-limonDEF.webp";
+import img3 from "../assets/img/tresLechesPromocionalDEF.webp";
+import roscon from "../assets/img/RosconPromo.webp";
+import tartaEspecial from "../assets/img/tartaEspecial50.webp";
+import galletas from "../assets/img/galletas.webp";
 
+import {
+  FaPhoneAlt
+} from "react-icons/fa";
+
+//DATA
+import { categorias } from "../data/productosData";
 
 function Home({ user, setUser }) {
+
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
@@ -26,73 +36,155 @@ function Home({ user, setUser }) {
     navigate("/");
   };
 
-  const images = [logoImage, info, tarta2, img1, img2, img3, galletas];
+  //Producto destacado
+  const productoDestacado = categorias .flatMap((categoria) => categoria.productos) .find((producto) => producto.id === 4);
+
+  const images = [
+    logoImage,
+    tarta2,
+    img1,
+    img2,
+    img3,
+    galletas,
+  ];
 
   useEffect(() => {
+
     let loadedCount = 0;
+
     images.forEach((src) => {
+
       const img = new Image();
+
       img.src = src;
+
       img.onload = () => {
-        loadedCount += 1;
+
+        loadedCount++;
+
         if (loadedCount === images.length) {
-          setLoading(false); // todas las imágenes cargadas
+          setLoading(false);
         }
+
       };
+
     });
+
   }, []);
-   if (loading) {
-    // Esto se mostrará mientras se cargan las imágenes
+
+  if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <p className="text-xl font-bold">Cargando contenido...</p>
+        <p className="text-xl font-bold">
+          Cargando contenido...
+        </p>
       </div>
     );
   }
 
   return (
     <>
+      <h1 className="absolute w-px h-px overflow-hidden whitespace-nowrap">
+        Silpaza
+      </h1>
 
-      <h1 class="absolute w-px h-px overflow-hidden clip-[rect(0,0,0,0)] whitespace-nowrap border-0"> Silpaza</h1>
-      
-        <Header
-          logoImage={logoImage}
-          info={info}
-          onLogout={handleLogout} // <---- PASAMOS LA FUNCION
-          user={user}
-        />
-     
+      <Header
+        logoImage={logoImage}
+        onLogout={handleLogout}
+        user={user}
+      />
 
-      <div className="bg-amber-300 mt-10 mb-10 p-10"> {/* p-5 para padding interno */}
-        <FraseImagen
-          backgroundImage={tarta2}
-          frase=" La felicidad no brota de la razón, sino de la imaginación (Immanuel Kant)."
-          className="mt-24 md:mt-32"
-        />
+      {/* HERO */}
+      <FraseImagen
+        backgroundImage={tarta2}
+        eslogan="Hecho con cariño"
+        frase="Dulces para momentos especiales"
+        descripcion="Tartas, galletas y pequeños detalles para momentos especiales."
+      />
 
+      {/* SERVICIOS */}
+      <Servicios />
+
+      {/* PRODUCTOS */}
+      <ImagenCollage
+        image1={img1}
+        name1="Cheesecake"
+        image2={img2}
+        name2="Pie de limón"
+        image3={img3}
+        name3="Tres leches"
+      />
+
+      {/* FRASE */}
+      <div className="py-8 md:py-12">
+      <FraseImagen
+        eslogan="Los mejores momentos merecen algo dulce"
+        backgroundImage={roscon}
+        frase="La felicidad no brota de la razón, sino de la imaginación."
+      />
       </div>
 
-        <ImagenCollage
-          image1={img1}
-          name1='Mi primera tarta'
-          image2={img2}
-          name2='Mi segunda tarta'
-          image3={img3}
-          name3='Mi tercera tarta'
-        />
+      {/* DESTACADO */}
+      <Destacado
+        producto={productoDestacado}
+      />
 
 
-        <Destacado
-          backgroundImage={galletas}
-          frase="Pequeños detalles hacen grandes diferencias"
-        />
+{/* CTA */}
 
-        <Footer
-          logo={logoImage}
-        />
-      
+<section className="my-8 md:my-12 py-20 px-6 text-center bg-[#AE043D] text-white">
+
+  <div className="max-w-3xl mx-auto">
+
+    <p className="uppercase tracking-[0.25em] text-sm text-white/80 mb-4">
+      Hacemos tus momentos más dulces
+    </p>
+
+    <h2 className="text-4xl md:text-5xl font-leckerli mb-5">
+      ¿Tienes algo que celebrar?
+    </h2>
+
+    <p className="text-lg md:text-xl text-white/90 leading-relaxed mb-8">
+      Cumpleaños, reuniones, celebraciones o simplemente un antojo.
+      Cuéntanos qué tienes en mente y prepararemos algo especial para ti.
+    </p>
+
+    <a
+      href="tel:+34652345678"
+      className="
+        inline-flex
+        items-center
+        justify-center
+        gap-3
+        px-8
+        py-4
+        bg-white
+        text-[#AE043D]
+        rounded-full
+        font-semibold
+        hover:scale-105
+        hover:shadow-lg
+        transition
+      "
+    >
+      <FaPhoneAlt aria-hidden="true" />
+      Llamar para hacer un pedido
+    </a>
+
+  </div>
+
+</section>
+
+
+
+
+      {/* HISTORIA */}
+      <SobreNosotros image={tartaEspecial} />
+
+      <Footer logo={logoImage} />
+
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;

@@ -4,126 +4,248 @@ import Producto from "../components/productoItem.jsx";
 import Audio from "../components/AudioPlayer.jsx";
 import Video from "../components/VideoPlayer.jsx";
 import Footer from "../components/footer.jsx";
+import BotonWhatsApp from "../components/BotonWhatsApp";
 
-/* Importaciones de recursos */
-import tarta from "../assets/img/tartaDeChocolate.webp";
-import tresLeches from "../assets/img/tresLeches.webp";
-import volteado from "../assets/img/volteadoDePiña.webp";
-import logoImage from '../assets/logoo.webp';
-import info from '../assets/info.webp';
-import audioMp3 from '../assets/audio/AudioMC.mp3';
-import audioOgg from '../assets/audio/AudioMC.ogg';
-import videoMp4 from '../assets/video/Video.mp4';
-import videoWebm from '../assets/video/Video.webm';
+/* =========================
+   IMPORTACIONES DE RECURSOS
+========================= */
 
-function Productos({ user, setUser  }) {
+import logoImage from "../assets/img/logooDEF.webp";
+
+import audioMp3 from "../assets/audio/AudioMC.mp3";
+import audioOgg from "../assets/audio/AudioMC.ogg";
+
+import videoMp4 from "../assets/video/Video.mp4";
+import videoWebm from "../assets/video/Video.webm";
+
+/* =========================
+     CATEGORÍAS Y PRODUCTOS
+  ========================= */
+
+  import { categorias } from "../data/productosData.js";
+
+function Productos({ user, setUser }) {
+
   const navigate = useNavigate();
 
+
+  /* =========================
+     CERRAR SESIÓN
+  ========================= */
+
   const handleLogout = () => {
+
     localStorage.removeItem("userData");
+
     setUser(null);
+
     navigate("/");
   };
 
+
+  
+
   return (
-    <div className="bg-amber-50 min-h-screen">
+
+    <div className="min-h-screen bg-[#fdfaf3]">
+
+      {/* =========================
+          HEADER
+      ========================= */}
 
       <Header
         logoImage={logoImage}
-        info={info}
         onLogout={handleLogout}
         user={user}
       />
 
-      {/* Sección Multimedia */}
-      <section className="bg-[#c2cf70] mt-10 mb-10 p-8 md:p-12 rounded-xl shadow-lg max-w-6xl mx-auto">
-        <h1 className="text-3xl md:text-4xl font-bold text-center mb-8 text-gray-800">
-          Ejemplos de Multimedia
-        </h1>
 
-        {/* Contenedor de imágenes responsivo */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 justify-items-center">
-          <img
-            src={tarta}
-            alt="Tarta de Chocolate"
-            loading="lazy"
-            className="w-64 h-auto rounded-lg object-cover hover:scale-105 transition-transform duration-300"
-          />
+      {/* =========================
+          PRODUCTOS
+      ========================= */}
 
-          <picture>
-            <source srcSet={tresLeches} type="image/webp" />
-            <img
-              src={volteado}
-              alt="Volteado de Piña"
-              className="w-64 h-auto rounded-lg object-cover hover:scale-105 transition-transform duration-300"
-            />
-          </picture>
+      <main id="Productos">
+
+        {/* TÍTULO PRINCIPAL */}
+
+        <section className="max-w-6xl mx-auto px-4 md:px-8 py-16">
+
+          <div className="text-center">
+
+            <p className="uppercase tracking-[0.25em] text-sm text-gray-500 mb-3">
+              Nuestra selección
+            </p>
+
+            <h1
+              style={{
+                fontFamily: '"Leckerli One", cursive'
+              }}
+              className="text-4xl md:text-5xl text-gray-800"
+            >
+              Dulces para cada momento
+            </h1>
+
+          </div>
+
+        </section>
+
+
+        {/* =========================
+            CATEGORÍAS GENERADAS
+        ========================= */}
+
+        {categorias.map((categoria) => {
+
+          const Icono = categoria.icono;
+
+          return (
+
+            <section
+              key={categoria.nombre}
+              className="py-16 px-4 md:px-8"
+              style={{
+                backgroundColor: categoria.color
+              }}
+            >
+
+              <div className="max-w-6xl mx-auto">
+
+
+                {/* CABECERA DE CATEGORÍA */}
+
+                <div className="text-center mb-12">
+
+                  <Icono
+                    className="
+                      text-5xl
+                      text-[#A4133C]
+                      mx-auto
+                      mb-4
+                    "
+                  />
+
+                  <h2
+                    style={{
+                      fontFamily: '"Leckerli One", cursive'
+                    }}
+                    className="text-3xl md:text-4xl text-gray-800"
+                  >
+                    {categoria.nombre}
+                  </h2>
+
+                  <p className="text-gray-600 mt-3 max-w-xl mx-auto">
+                    {categoria.descripcion}
+                  </p>
+
+                </div>
+
+
+                {/* =========================
+                    GRID DE PRODUCTOS
+                ========================= */}
+
+                <div
+                  className="
+                    grid
+                    grid-cols-1
+                    sm:grid-cols-2
+                    lg:grid-cols-3
+                    gap-8
+                  "
+                >
+
+                  {categoria.productos.map((producto) => (
+
+                    <Producto
+                      key={producto.id}
+                      image={producto.image}
+                      name={producto.nombre}
+                      description1={producto.descripcion}
+                      alergenos={
+                        producto.alergenos.map((alergeno) => ({
+                          nombre: alergeno
+                        }))
+                      }
+                      onClick={() => navigate(`/detalleProducto/${producto.id}`)}
+                    />
+
+                  ))}
+
+                </div>
+
+              </div>
+
+            </section>
+
+          );
+
+        })}
+
+      </main>
+
+
+      {/* =========================
+          MULTIMEDIA
+      ========================= */}
+
+      <section className="max-w-6xl mx-auto px-4 md:px-8 py-16">
+
+        <div className="text-center mb-10">
+
+          <p className="uppercase tracking-[0.25em] text-sm text-gray-500 mb-3">
+            Así creamos
+          </p>
+
+          <h2
+            style={{
+              fontFamily: '"Leckerli One", cursive'
+            }}
+            className="text-3xl md:text-4xl text-gray-800"
+          >
+            Momentos para recordar
+          </h2>
+
         </div>
-      </section>
 
-      {/* Sección Productos */}
-      <section id="Productos" className="max-w-6xl mx-auto px-4 md:px-8 py-12">
-        <h2 style={{ fontFamily: '"Leckerli One", cursive' }} className="text-4xl md:text-5xl text-center mb-10 text-gray-800">
-          Productos
-        </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        <div
+          className="
+            flex
+            flex-col
+            md:flex-row
+            gap-8
+            md:gap-12
+            justify-center
+            items-start
+          "
+        >
 
-          <Producto
-            image={tarta}
-            alt="Es una trata de chocolate realizada con productos de kilometraje 0."
-            name="Tarta de Chocolate"
-            description1="Deliciosa tarta de chocolate con cobertura de trufa"
-            alergenos={[{ nombre: "Gluten" }, { nombre: "Leche" }, { nombre: "Soja" }]}
-            colorFondo="amarillo"
+          <Audio
+            nameAudio="Audio Navideño"
+            mp3={audioMp3}
+            ogg={audioOgg}
           />
 
-          <Producto
-            alt="Tarta de piña o volteado de piña es un bizcocho con pociones de la fruta."
-            image={volteado}
-            name="Volteado de Piña"
-            description1="Bizcocho esponjoso de piña con cobertura suave"
-            alergenos={
-              [
-                { nombre: "Gluten" }, 
-                { nombre: "Leche" },
-                { nombre: "Huevos" }
-              ]
-            }
-            colorFondo="rosa"
+          <Video
+            mp4={videoMp4}
+            webm={videoWebm}
+            titulo="Pastel de unicornio"
+            usuario="Silpaza"
+            className="w-full md:w-96"
           />
 
-          <Producto
-          alt="Es un dulce que consiste en un bizcocho mojado en una mezcla dulce y de cobertura de merengue."
-            image={tresLeches}
-            name="Tres Leches"
-            description1="Es un bizcocho mojado con cobertura de merengue"
-            alergenos={[
-              { nombre: "Gluten", icono: "img" },
-              { nombre: "Leche", icono: "img" },
-            ]}
-            colorFondo="verde"
-          />
         </div>
+
       </section>
 
-      {/* Sección Multimedia de Audio y Video */}
-      <section className="max-w-6xl mx-auto px-4 md:px-8 py-12 flex flex-col md:flex-row gap-8 md:gap-12 justify-center items-start">
-        <Audio
-          nameAudio="Audio Navideño"
-          mp3={audioMp3}
-          ogg={audioOgg}
-        />
 
-        <Video
-          mp4={videoMp4}
-          webm={videoWebm}
-          titulo="Pastel de unicornio"
-          usuario="Silpaza"
-          className="w-full md:w-96"
-        />
-      </section>
+      {/* =========================
+          FOOTER
+      ========================= */}
+
       <Footer logo={logoImage} />
+
+        <BotonWhatsApp />
     </div>
   );
 }
