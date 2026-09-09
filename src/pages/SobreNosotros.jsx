@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import ContactForm from "../components/ContactForm";
 import Header from "../components/header.jsx";
 import Footer from "../components/footer.jsx";
@@ -17,6 +17,9 @@ function SobreNosotros({ user, setUser }) {
     navigate("/");
   };
 
+    useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <div className="bg-amber-50">

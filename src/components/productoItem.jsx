@@ -41,7 +41,7 @@ function Producto({
         group overflow-hidden rounded-3xl
         bg-white shadow-md
         transition-all duration-300
-        hover:-translate-y-2 hover:shadow-xl
+        hover:-translate-y-2 hover:shadow-xl cursor-pointer
       `}
        onClick={onClick}
     >

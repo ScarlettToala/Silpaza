@@ -8,6 +8,7 @@ import Servicios from "../components/servicios.jsx";
 import ImagenCollage from "../components/imagenCollage.jsx";
 import Destacado from "../components/destacarproducto.jsx";
 import SobreNosotros from "../components/SobreNosotros.jsx";
+import BotonWhatsApp from "../components/BotonWhatsApp.jsx";
 
 import logoImage from "../assets/img/logooDEF.webp";
 import tarta2 from "../assets/img/tarta2DEF.webp";
@@ -183,6 +184,7 @@ function Home({ user, setUser }) {
 
       <Footer logo={logoImage} />
 
+    <BotonWhatsApp />
     </>
   );
 }

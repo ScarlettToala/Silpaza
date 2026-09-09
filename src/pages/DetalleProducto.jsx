@@ -302,6 +302,7 @@ function DetalleProducto({ user, setUser }) {
         transition-all
         hover:underline
         hover:translate-x-1
+        cursor-pointer
       "
     >
       Volver a productos →

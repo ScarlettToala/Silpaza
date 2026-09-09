@@ -64,10 +64,6 @@ function ImagenCollage({
                 {producto.name}
               </h3>
 
-              <span className="text-sm text-gray-500 group-hover:underline">
-                Descubrir →
-              </span>
-
             </Link>
           ))}
 

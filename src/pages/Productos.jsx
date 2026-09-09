@@ -1,5 +1,6 @@
+import { useEffect } from "react";
 import Header from "../components/header.jsx";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import Producto from "../components/productoItem.jsx";
 import Audio from "../components/AudioPlayer.jsx";
 import Video from "../components/VideoPlayer.jsx";
@@ -18,6 +19,7 @@ import audioOgg from "../assets/audio/AudioMC.ogg";
 import videoMp4 from "../assets/video/Video.mp4";
 import videoWebm from "../assets/video/Video.webm";
 
+
 /* =========================
      CATEGORÍAS Y PRODUCTOS
   ========================= */
@@ -28,6 +30,9 @@ function Productos({ user, setUser }) {
 
   const navigate = useNavigate();
 
+    useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
 
   /* =========================
      CERRAR SESIÓN
