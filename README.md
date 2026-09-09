@@ -139,7 +139,7 @@ Aunque el proyecto simula una base de datos con un JSON en constante, esto no su
 - MySQL o PostgreSQL
 
 Esto es gracias a que se trabaja con objetos y arrays de JavaScript, lo que facilita la transición a un backend real.
- 
+
 ## 7. Flujo de la aplicación
 
 ### Página principal
@@ -209,18 +209,6 @@ En el proyecto puedes ejecutar estos comandos:
 ```bash
 npm install
 npm run dev
-```
-
-Para compilar la versión de producción:
-
-```bash
-npm run build
-```
-
-Para vista previa de la build:
-
-```bash
-npm run preview
 ```
 
 ## 11. Cómo arrancar el proyecto
