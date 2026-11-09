@@ -1,43 +1,88 @@
 # Silpaza - Frontend de tienda online
 
-Este proyecto es una aplicación frontend desarrollada con React y Vite para una tienda de productos dulces y repostería. Actualmente el proyecto está centrado en la parte visual y de experiencia de usuario, mientras que la información del catálogo y la gestión básica de usuarios se simula con datos locales en el navegador.
+Aplicación frontend desarrollada con **React** y **Vite** para una tienda de productos dulces y repostería. Por ahora el proyecto se centra en la parte visual y en la experiencia de usuario: el catálogo y la gestión básica de usuarios se simulan con datos locales en el navegador.
+
+## Índice
+
+1. [Descripción del proyecto](#1-descripción-del-proyecto)
+2. [Estado actual](#2-estado-actual)
+3. [Tecnologías utilizadas](#3-tecnologías-utilizadas)
+4. [Instalación y arranque](#4-instalación-y-arranque)
+5. [Estructura del proyecto](#5-estructura-del-proyecto)
+6. [Arquitectura general](#6-arquitectura-general)
+7. [Modelo de datos](#7-modelo-de-datos)
+8. [Flujo de la aplicación](#8-flujo-de-la-aplicación)
+   - [Página principal](#página-principal)
+   - [Productos](#productos)
+   - [Detalle del producto](#detalle-del-producto)
+   - [Login y registro](#login-y-registro)
+   - [Rutas protegidas](#rutas-protegidas)
+9. [Gestión de usuario y sesión](#9-gestión-de-usuario-y-sesión)
+10. [Rutas principales](#10-rutas-principales)
+11. [Limitaciones actuales](#11-limitaciones-actuales)
+12. [Mejoras futuras](#12-mejoras-futuras)
+13. [Conclusión](#13-conclusión)
+
+---
 
 ## 1. Descripción del proyecto
 
-Silpaza es una tienda de productos de repostería y dulces con una estructura tipo e-commerce. La aplicación permite:
+Silpaza es una tienda de repostería y dulces con estructura de e-commerce. La aplicación permite:
 
 - Ver la página principal de la marca.
 - Navegar por distintas categorías de productos.
 - Consultar la información detallada de cada producto.
-- Registrarse e iniciar sesión en la aplicación.
-- Mantener la sesión del usuario usando `localStorage`.
-- Explorar una interfaz moderna y responsive.
+- Registrarse e iniciar sesión.
+- Mantener la sesión del usuario mediante `localStorage`.
+- Disfrutar de una interfaz moderna y responsive.
 
-El proyecto está en una fase de frontend funcional, ahora mismo presenta pocos productos pero se podría amplicar para mostrar más productos con una limitación de 5 productos y crear una pagina por categorias o mostrar más en la misma página.    
+Ahora mismo el catálogo tiene pocos productos. Se podría ampliar de dos formas:
+
+- Mostrar un máximo de 5 productos por categoría y crear una página para cada una.
+- Mostrar más productos en la misma página (por ejemplo, con un botón "Ver más").
 
 ## 2. Estado actual
 
-Actualmente, la aplicación trabaja con:
+La aplicación trabaja con:
 
-- Un archivo de datos local en JavaScript: `src/data/productosData.js`
-- Un catálogo de productos almacenado como un array de objetos JSON.
-- Persistencia de usuarios y sesión en el navegador mediante `localStorage`.
+- Un archivo de datos local en JavaScript: `src/data/productosData.js`.
+- Un catálogo de productos almacenado como un array de objetos.
+- Usuarios y sesión guardados en el navegador mediante `localStorage`.
 
-Esto significa que, por ahora, la "base de datos" del proyecto es un fichero estático de constante en frontend, no una base de datos real ni un servidor backend. Por lo que iniciar sesión solo se hace mediante local storage y no hay un sistema de autenticación real ni seguridad para producción.
+Por tanto, la "base de datos" es una constante estática en el frontend, no una base de datos real ni un servidor backend. El inicio de sesión se simula con `localStorage`: no hay autenticación real ni seguridad apta para producción.
 
 ## 3. Tecnologías utilizadas
 
-- React 19
-- Vite 7
-- React Router DOM
-- Tailwind CSS
-- Sass
-- React Icons
-- ESLint
+| Tecnología | Uso |
+|:--|:--|
+| React 19 | Interfaz de usuario |
+| Vite 7 | Entorno de desarrollo y empaquetado |
+| React Router DOM | Navegación entre páginas |
+| Tailwind CSS | Estilos con clases utilitarias |
+| Sass | Estilos personalizados (`.scss`) |
+| React Icons | Iconos |
+| ESLint | Calidad y revisión del código |
 
-## 4. Estructura del proyecto
+## 4. Instalación y arranque
+
+1. Abre la terminal en la raíz del proyecto.
+2. Instala las dependencias:
 
 ```bash
+npm install
+```
+
+3. Inicia el servidor de desarrollo:
+
+```bash
+npm run dev
+```
+
+4. Abre en el navegador la URL que te indique Vite.
+
+## 5. Estructura del proyecto
+
+```text
 src/
 ├── App.jsx
 ├── App.css
@@ -82,29 +127,31 @@ src/
     └── ProductoColores.scss
 ```
 
-## 5. Arquitectura general
+## 6. Arquitectura general
 
-La aplicación sigue una arquitectura muy sencilla de frontend:
+La aplicación sigue una arquitectura frontend sencilla:
 
-1. El componente principal `App.jsx` define las rutas de navegación.
-2. Cada página de visualización vive en la carpeta `src/pages`.
+1. `App.jsx` define las rutas de navegación.
+2. Cada página vive en `src/pages`.
 3. Los componentes reutilizables están en `src/components`.
-4. Los datos del catálogo se encuentran en `src/data/productosData.js`.
-5. La sesión y los usuarios se guardan en el navegador mediante `localStorage`.
+4. Los datos del catálogo están en `src/data/productosData.js`.
+5. La sesión y los usuarios se guardan en el navegador con `localStorage`.
 
-## 6. Modelo de datos
+## 7. Modelo de datos
 
-El catálogo principal se organiza en una constante llamada `categorias`, y cada categoría contiene una colección de productos.
+El catálogo se organiza en una constante llamada `categorias`, y cada categoría contiene una colección de productos.
 
-Cada producto tiene información como:
+Cada producto tiene estos campos:
 
-- `id`
-- `image`
-- `nombre`
-- `descripcion`
-- `descripcionLarga`
-- `caracteristicas`
-- `alergenos`
+| Campo | Descripción |
+|:--|:--|
+| `id` | Identificador único |
+| `image` | Imagen del producto |
+| `nombre` | Nombre del producto |
+| `descripcion` | Descripción corta |
+| `descripcionLarga` | Descripción completa |
+| `caracteristicas` | Lista de características |
+| `alergenos` | Lista de alérgenos |
 
 Ejemplo de estructura:
 
@@ -128,70 +175,67 @@ export const categorias = [
 ];
 ```
 
-### Importante
+> [!IMPORTANT]
+> Aunque el proyecto simula una base de datos con un JSON en una constante, esto no sustituye a una base de datos real. Como se trabaja con objetos y arrays de JavaScript, en el futuro sería fácil migrar a:
+>
+> - una API REST
+> - Firebase
+> - Supabase
+> - MongoDB
+> - MySQL o PostgreSQL
 
-Aunque el proyecto simula una base de datos con un JSON en constante, esto no sustituye a una base de datos real. En un futuro se podría migrar a:
-
-- una API REST
-- Firebase
-- Supabase
-- MongoDB
-- MySQL o PostgreSQL
-
-Esto es gracias a que se trabaja con objetos y arrays de JavaScript, lo que facilita la transición a un backend real.
-
-## 7. Flujo de la aplicación
+## 8. Flujo de la aplicación
 
 ### Página principal
 
-La ruta `/home` muestra:
+La ruta `/home` muestra, en este orden:
 
-- header
-- banner promocional
-- servicios
-- collage de productos
-- destacado del día
-- historia de la marca
-- footer
+- Header
+- Banner promocional
+- Servicios
+- Collage de productos
+- Destacado del día
+- Historia de la marca
+- Footer
 
 ### Productos
 
-La ruta `/productos` muestra todas las categorías y sus productos en un formato tipo catálogo.
+La ruta `/productos` muestra todas las categorías y sus productos en formato catálogo.
 
 ### Detalle del producto
 
-La ruta `/detalleProducto/:id` permite ver la información completa del producto seleccionado.
+La ruta `/detalleProducto/:id` muestra la información completa del producto seleccionado.
 
 ### Login y registro
 
 - `/login` permite iniciar sesión.
 - `/register` permite crear un usuario nuevo.
-- La información del usuario se guarda en `localStorage` bajo `userData` y `users`.
+- Los datos se guardan en `localStorage` bajo las claves `userData` (usuario con sesión activa) y `users` (usuarios registrados).
 
 ### Rutas protegidas
 
-La aplicación usa `react-router-dom` para redirigir al usuario si no ha iniciado sesión.
+Con `react-router-dom`, la aplicación redirige al usuario si no ha iniciado sesión.
 
-## 8. Gestión de usuario y sesión
+## 9. Gestión de usuario y sesión
 
-La sesión del usuario se gestiona con:
+La sesión se gestiona con:
 
-- `useState` en `App.jsx`
-- almacenamiento en `localStorage`
+- `useState` en `App.jsx`.
+- Almacenamiento en `localStorage`.
 
-Ejemplo de lógica:
+Ejemplo de la lógica:
 
 ```js
 const savedUser = JSON.parse(localStorage.getItem("userData"));
 if (savedUser) setUser(savedUser);
 ```
 
-Esto permite que el usuario permanezca autenticado durante la sesión del navegador.
+Así, el usuario sigue identificado aunque recargue la página o cierre el navegador, hasta que cierre sesión o se borre el almacenamiento.
 
-## 9. Rutas principales
+## 10. Rutas principales
 
 | Ruta | Descripción |
-| --- | --- |
+|:--|:--|
 | `/` | Redirección inicial según si el usuario está logueado |
 | `/login` | Inicio de sesión |
 | `/register` | Registro de usuario |
@@ -202,56 +246,25 @@ Esto permite que el usuario permanezca autenticado durante la sesión del navega
 | `/servicios` | Servicios y oferta |
 | `*` | Página de error |
 
-## 10. Scripts disponibles
+## 11. Limitaciones actuales
 
-En el proyecto puedes ejecutar estos comandos:
+> [!WARNING]
+> Este proyecto es solo un frontend. No debe usarse en producción con datos reales de usuarios.
 
-```bash
-npm install
-npm run dev
-```
+- No hay backend real.
+- Los productos están simulados con un JSON constante.
+- La autenticación es local y no es segura: los datos de los usuarios están en `localStorage`, donde cualquiera puede leerlos desde el navegador.
+- Está pensado como base para conectar después una API o una base de datos real.
 
-## 11. Cómo arrancar el proyecto
+## 12. Mejoras futuras
 
-1. Abre la terminal en la raíz del proyecto.
-2. Instala las dependencias:
+- [ ] Migrar los productos a una API REST.
+- [ ] Conectar un backend con MongoDB, MySQL o PostgreSQL.
+- [ ] Añadir autenticación real con JWT o sesiones seguras.
+- [ ] Crear un panel de administración para gestionar productos.
+- [ ] Guardar imágenes y datos de productos en una base de datos.
+- [ ] Ampliar el catálogo y crear una página por categoría.
 
-```bash
-npm install
-```
+## 13. Conclusión
 
-3. Inicia el servidor de desarrollo:
-
-```bash
-npm run dev
-```
-
-4. Abre la URL que te indique Vite en el navegador.
-
-## 12. Observaciones importantes
-
-- Este proyecto es un frontend sin backend real.
-- La información de productos está simulada con un JSON constante.
-- La lógica de autenticación actual es local y no segura para producción.
-- El proyecto está pensado como base para luego conectar una API o base de datos real.
-
-## 13. Mejoras futuras recomendadas
-
-- Migrar la información de productos a una API REST.
-- Conectar un backend con MongoDB, MySQL o PostgreSQL.
-- Añadir autenticación real con JWT o sesiones seguras.
-- Crear panel de administración para gestionar productos.
-- Guardar imágenes y datos de productos desde una base de datos.
-
-## 14. Conclusión
-
-El proyecto actual funciona como un frontend completo de tienda online para repostería, con catálogo visual y flujo de usuario básico. Su gran ventaja es que ya tiene la base estructural para crecer y conectarse más adelante a una base de datos real o a una API de producción.
-
----
-
-Si quieres, en el siguiente paso puedo dejarte una versión aún más profesional con:
-
-- documentación técnica en formato README para GitHub,
-- descripción de cada componente,
-- diagrama de flujo de la app,
-- y una guía de mejora para convertirlo en proyecto fullstack.
+Silpaza funciona como un frontend completo de tienda online de repostería, con catálogo visual y un flujo de usuario básico. Su ventaja es que ya tiene una base estructural sólida para conectarse más adelante a una base de datos real o a una API de producción.
