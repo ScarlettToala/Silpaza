@@ -268,3 +268,6 @@ Así, el usuario sigue identificado aunque recargue la página o cierre el naveg
 ## 13. Conclusión
 
 Silpaza funciona como un frontend completo de tienda online de repostería, con catálogo visual y un flujo de usuario básico. Su ventaja es que ya tiene una base estructural sólida para conectarse más adelante a una base de datos real o a una API de producción.
+
+# Video Demo
+[![Demo de Silpaza](src/assets/img/silpaza.png)](video/SilpazaDemo.mp4)
