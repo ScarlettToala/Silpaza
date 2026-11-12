@@ -1,23 +1,23 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Header from "../components/header.jsx";
-import Footer from "../components/footer.jsx";
+import Header from "../components/Header.jsx";
+import Footer from "../components/Footer.jsx";
 import FraseImagen from "../components/Banner.jsx";
-import Servicios from "../components/servicios.jsx";
-import ImagenCollage from "../components/imagenCollage.jsx";
-import Destacado from "../components/destacarproducto.jsx";
+import Servicios from "../components/Servicios.jsx";
+import ImagenCollage from "../components/ImagenCollage.jsx";
+import Destacado from "../components/Destacarproducto.jsx";
 import SobreNosotros from "../components/SobreNosotros.jsx";
 import BotonWhatsApp from "../components/BotonWhatsApp.jsx";
 
-import logoImage from "../assets/img/logooDEF.webp";
-import tarta2 from "../assets/img/tarta2DEF.webp";
+import logoImage from "../assets/img/LogooDEF.webp";
+import tarta2 from "../assets/img/Tarta2DEF.webp";
 import img1 from "../assets/img/CheesecakeNormalDEF.webp";
-import img2 from "../assets/img/Receta-lemon-pie-tarta-de-limonDEF.webp";
-import img3 from "../assets/img/tresLechesPromocionalDEF.webp";
+import img2 from "../assets/img/RecetaLemonPieTartaDeLimonDEF.webp";
+import img3 from "../assets/img/TresLechesPromocionalDEF.webp";
 import roscon from "../assets/img/RosconPromo.webp";
-import tartaEspecial from "../assets/img/tartaEspecial50.webp";
-import galletas from "../assets/img/galletas.webp";
+import tartaEspecial from "../assets/img/TartaEspecial50.webp";
+import galletas from "../assets/img/Galletas.webp";
 
 import {
   FaPhoneAlt

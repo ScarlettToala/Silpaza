@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useRef, useState, useEffect } from "react";
 import ContactForm from "../components/ContactForm";
-import Header from "../components/header.jsx";
-import Footer from "../components/footer.jsx";
+import Header from "../components/Header.jsx";
+import Footer from "../components/Footer.jsx";
 import FraseImagen from "../components/Banner.jsx";
 
 import logoImage from '../assets/img/logooDEF.webp';

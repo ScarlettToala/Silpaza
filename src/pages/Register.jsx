@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import HeaderLogIn from "../components/headerLogIn";
-import Footer from "../components/footer";
-import logoImage from "../assets/img/logooDEF.webp";
+import HeaderLogIn from "../components/HeaderLogIn";
+import Footer from "../components/Footer";
+import logoImage from "../assets/img/LogooDEF.webp";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useAuth } from "../context/AuthContext";
 
 const countries = [
     "Argentina", "Bolivia", "Brasil", "Chile", "Colombia",
@@ -11,7 +12,9 @@ const countries = [
     "Uruguay", "Venezuela", "España"
 ];
 
-const Register = ({ setUser }) => {
+const Register = () => {
+
+    const { login } = useAuth();
 
     const [formData, setFormData] = useState({
         email: "",
@@ -46,12 +49,26 @@ const Register = ({ setUser }) => {
     };
 
     const handlePhotoChange = (e) => {
-        setFormData({
-            ...formData,
-            photo: e.target.files[0]
-        });
-    };
+        const file = e.target.files[0];
+        if (!file) return;
 
+        // localStorage tiene poco espacio (~5 MB), así que limitamos el tamaño
+        if (file.size > 500 * 1024) {
+            setErrors((prev) => ({ ...prev, photo: "La foto no puede pesar más de 500 KB" }));
+            e.target.value = "";   // vacía el input
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = () => {
+            // reader.result es la imagen convertida a texto base64
+            setFormData((prev) => ({ ...prev, photo: reader.result }));
+            setErrors((prev) => ({ ...prev, photo: "" }));
+        };
+
+        reader.readAsDataURL(file);
+    };
     const validateField = (name, value) => {
 
         let error = "";
@@ -154,8 +171,6 @@ const Register = ({ setUser }) => {
             country: formData.country,
             phone: formData.phone,
             photo: formData.photo
-                ? URL.createObjectURL(formData.photo)
-                : null
         };
 
         users.push(newUser);
@@ -165,12 +180,8 @@ const Register = ({ setUser }) => {
             JSON.stringify(users)
         );
 
-        localStorage.setItem(
-            "userData",
-            JSON.stringify(newUser)
-        );
+        login(newUser);
 
-        setUser(newUser);
 
         setSuccess(true);
 
@@ -449,6 +460,10 @@ const Register = ({ setUser }) => {
                                     onChange={handlePhotoChange}
                                     className="hidden"
                                 />
+
+                                {errors.photo && (
+                                    <p className="text-red-600 text-sm">{errors.photo}</p>
+                                )}
 
                             </div>
 

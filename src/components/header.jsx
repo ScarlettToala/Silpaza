@@ -2,8 +2,12 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import NavLinks from "./NavLinks";
 import { FaInfoCircle, FaBars, FaTimes } from "react-icons/fa";
+import { useAuth } from "../context/AuthContext";
 
-export default function Header({ logoImage, onLogout, user }) {
+import logoImage from "../assets/img/LogooDEF.webp";
+
+export default function Header({ logoImage }) {
+  const { user, logout } = useAuth();
   const [menuAbierto, setMenuAbierto] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -36,7 +40,7 @@ useEffect(() => {
     );
 
     if (confirmar) {
-      onLogout();
+      logout();
     }
   };
 

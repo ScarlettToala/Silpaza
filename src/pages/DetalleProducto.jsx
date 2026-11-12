@@ -1,15 +1,13 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
-import Header from "../components/header";
-import Footer from "../components/footer";
-import Alergenos from "../components/alergenos";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import Alergenos from "../components/Alergenos";
 import {
 FaPhoneAlt
 } from "react-icons/fa";
 
 import { categorias } from "../data/productosData";
-
-import logoImage from "../assets/img/logooDEF.webp";
 
 function DetalleProducto({ user, setUser }) {
 
@@ -51,7 +49,6 @@ function DetalleProducto({ user, setUser }) {
       <div className="min-h-screen bg-[#fdfaf3] flex flex-col">
 
         <Header
-          logoImage={logoImage}
           onLogout={handleLogout}
           user={user}
         />
@@ -80,7 +77,7 @@ function DetalleProducto({ user, setUser }) {
 
         </main>
 
-        <Footer logo={logoImage} />
+        <Footer/>
 
       </div>
     );
@@ -96,7 +93,6 @@ function DetalleProducto({ user, setUser }) {
     <div className="bg-[#fdfaf3] min-h-screen flex flex-col">
 
       <Header
-        logoImage={logoImage}
         onLogout={handleLogout}
         user={user}
       />
@@ -316,7 +312,7 @@ function DetalleProducto({ user, setUser }) {
       </main>
 
 
-      <Footer logo={logoImage} />
+      <Footer/>
 
     </div>
   );

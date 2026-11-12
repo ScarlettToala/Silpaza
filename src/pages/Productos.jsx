@@ -1,17 +1,17 @@
 import { useEffect } from "react";
-import Header from "../components/header.jsx";
+import Header from "../components/Header.jsx";
 import { useNavigate} from "react-router-dom";
-import Producto from "../components/productoItem.jsx";
+import Producto from "../components/ProductoItem.jsx";
 import Audio from "../components/AudioPlayer.jsx";
 import Video from "../components/VideoPlayer.jsx";
-import Footer from "../components/footer.jsx";
+import Footer from "../components/Footer.jsx";
 import BotonWhatsApp from "../components/BotonWhatsApp";
 
 /* =========================
    IMPORTACIONES DE RECURSOS
 ========================= */
 
-import logoImage from "../assets/img/logooDEF.webp";
+import logoImage from "../assets/img/LogooDEF.webp";
 
 import audioMp3 from "../assets/audio/AudioMC.mp3";
 import audioOgg from "../assets/audio/AudioMC.ogg";

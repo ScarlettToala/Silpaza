@@ -25,7 +25,7 @@ export default Producto; */
 
 import React from "react";
 import { FaShoppingBag } from "react-icons/fa";
-import Alergenos from "./alergenos";
+import Alergenos from "./Alergenos";
 
 function Producto({
   image,

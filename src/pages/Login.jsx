@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import HeaderLogIn from "../components/headerLogIn";
-import Footer from "../components/footer";
+import HeaderLogIn from "../components/HeaderLogIn";
+import Footer from "../components/Footer";
 import logoImage from "../assets/img/logooDEF.webp";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useAuth } from "../context/AuthContext";
 
-const Login = ({ setUser }) => {
+const Login = () => {
+
+  const { login } = useAuth();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -38,20 +41,10 @@ const Login = ({ setUser }) => {
     );
 
     if (foundUser) {
-
-      localStorage.setItem(
-        "userData",
-        JSON.stringify(foundUser)
-      );
-
-      setUser(foundUser);
-
+      login(foundUser);
       navigate("/home");
-
     } else {
-
       setError("Email o contraseña incorrectos");
-
     }
   };
 
@@ -136,7 +129,7 @@ const Login = ({ setUser }) => {
                       : "Mostrar contraseña"
                   }
                 >
-                   {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </button>
 
               </div>

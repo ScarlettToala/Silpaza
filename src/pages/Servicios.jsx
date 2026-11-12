@@ -1,18 +1,17 @@
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-import Header from "../components/header";
-import Footer from "../components/footer";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 import BotonWhatsApp from "../components/BotonWhatsApp";
 
 import {
   FaBirthdayCake,
-  FaHeart,
   FaGift,
   FaTruck,
   FaPhoneAlt
 } from "react-icons/fa";
 
-import logoImage from "../assets/img/logooDEF.webp";
+import logoImage from "../assets/img/LogooDEF.webp";
 
 function Servicios({ user, setUser }) {
 
