@@ -1,15 +1,33 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import HeaderLogIn from "../components/HeaderLogIn";
+
+/*Componentes*/
+import HeaderLogIn from "../components/Header";
 import Footer from "../components/Footer";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import FormField from "../components/FormField";
+import InputContrasenya from "../components/InputContrasenya";
+
 import { useAuth } from "../context/AuthContext";
 
 const countries = [
-    "Argentina", "Bolivia", "Brasil", "Chile", "Colombia",
-    "Ecuador", "Guyana", "Paraguay", "Perú", "Surinam",
-    "Uruguay", "Venezuela", "España"
+    { name: "Argentina", prefix: "+54" },
+    { name: "Bolivia", prefix: "+591" },
+    { name: "Brasil", prefix: "+55" },
+    { name: "Chile", prefix: "+56" },
+    { name: "Colombia", prefix: "+57" },
+    { name: "Ecuador", prefix: "+593" },
+    { name: "Guyana", prefix: "+592" },
+    { name: "Paraguay", prefix: "+595" },
+    { name: "Perú", prefix: "+51" },
+    { name: "Surinam", prefix: "+597" },
+    { name: "Uruguay", prefix: "+598" },
+    { name: "Venezuela", prefix: "+58" },
+    { name: "España", prefix: "+34" }
 ];
+
+// Clases comunes de los inputs (antes estaban repetidas en cada campo)
+const inputClass =
+    "w-full px-4 py-2 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#A4133C]";
 
 const Register = () => {
 
@@ -25,16 +43,26 @@ const Register = () => {
         photo: null
     });
 
+    // La foto se guarda como texto base64, así que el nombre del archivo va aparte
+    const [photoName, setPhotoName] = useState("");
+
     const [errors, setErrors] = useState({});
     const [success, setSuccess] = useState(false);
-
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const navigate = useNavigate();
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        let { name, value } = e.target;
+
+        // Teléfono: solo números, sin prefijo (+34 / 0034) y máximo 9 dígitos
+        if (name === "phone") {
+            value = value.replace(/\D/g, "");                  // quita +, espacios, guiones...
+            value = value.replace(/^00/, "");                  // 0034... -> 34...
+            if (value.startsWith("34","") && value.length > 9) {
+                value = value.slice(2);                        // quita el prefijo 34
+            }
+            value = value.slice(0, 9);
+        }
 
         setFormData({
             ...formData,
@@ -63,11 +91,13 @@ const Register = () => {
         reader.onload = () => {
             // reader.result es la imagen convertida a texto base64
             setFormData((prev) => ({ ...prev, photo: reader.result }));
+            setPhotoName(file.name);
             setErrors((prev) => ({ ...prev, photo: "" }));
         };
 
         reader.readAsDataURL(file);
     };
+
     const validateField = (name, value) => {
 
         let error = "";
@@ -97,9 +127,9 @@ const Register = () => {
 
         if (
             name === "phone" &&
-            !value.match(/^[0-9]{7,15}$/)
+            !/^[0-9]{7,10}$/.test(value)
         ) {
-            error = "Ingrese un número válido (solo dígitos)";
+            error = "El teléfono debe tener entre 7 y 10 dígitos";
         }
 
         return error;
@@ -168,6 +198,7 @@ const Register = () => {
             password: formData.password,
             name: formData.name,
             country: formData.country,
+            countryPrefix: countries.find((c) => c.name === formData.country)?.prefix,
             phone: formData.phone,
             photo: formData.photo
         };
@@ -180,7 +211,6 @@ const Register = () => {
         );
 
         login(newUser);
-
 
         setSuccess(true);
 
@@ -208,15 +238,7 @@ const Register = () => {
                     >
 
                         {/* NOMBRE */}
-                        <div>
-
-                            <label
-                                className="block text-gray-700 font-semibold mb-1"
-                                htmlFor="name"
-                            >
-                                Nombre
-                            </label>
-
+                        <FormField id="name" label="Nombre" error={errors.name}>
                             <input
                                 type="text"
                                 name="name"
@@ -226,27 +248,12 @@ const Register = () => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 required
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#A4133C]"
+                                className={inputClass}
                             />
-
-                            {errors.name && (
-                                <p className="text-red-500 text-sm mt-1">
-                                    {errors.name}
-                                </p>
-                            )}
-
-                        </div>
+                        </FormField>
 
                         {/* EMAIL */}
-                        <div>
-
-                            <label
-                                className="block text-gray-700 font-semibold mb-1"
-                                htmlFor="email"
-                            >
-                                Email
-                            </label>
-
+                        <FormField id="email" label="Email" error={errors.email}>
                             <input
                                 type="email"
                                 name="email"
@@ -256,109 +263,36 @@ const Register = () => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 required
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#A4133C]"
+                                className={inputClass}
                             />
-
-                            {errors.email && (
-                                <p className="text-red-500 text-sm mt-1">
-                                    {errors.email}
-                                </p>
-                            )}
-
-                        </div>
+                        </FormField>
 
                         {/* CONTRASEÑA */}
-                        <div>
-                            <label
-                                className="block text-gray-700 font-semibold mb-1"
-                                htmlFor="password"
-                            >
-                                Contraseña
-                            </label>
-
-                            <div className="relative">
-                                <input
-                                    type={showPassword ? "text" : "password"}
-                                    name="password"
-                                    id="password"
-                                    placeholder="Escriba su contraseña"
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    required
-                                    className="w-full px-4 py-2 pr-12 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#A4133C]"
-                                />
-
-                                <button
-                                    type="button"
-                                    onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#A4133C] transition"
-                                    aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
-                                >
-                                    {showPassword ? <FaEyeSlash /> : <FaEye />}
-                                </button>
-                            </div>
-
-                            {errors.password && (
-                                <p className="text-red-500 text-sm mt-1">
-                                    {errors.password}
-                                </p>
-                            )}
-                        </div>
+                        <FormField id="password" label="Contraseña" error={errors.password}>
+                            <InputContrasenya
+                                id="password"
+                                name="password"
+                                placeholder="Escriba su contraseña"
+                                value={formData.password}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
+                        </FormField>
 
                         {/* CONFIRMAR CONTRASEÑA */}
-                        <div>
-                            <label
-                                className="block text-gray-700 font-semibold mb-1"
-                                htmlFor="confirmPassword"
-                            >
-                                Confirmar contraseña
-                            </label>
-
-                            <div className="relative">
-                                <input
-                                    type={showConfirmPassword ? "text" : "password"}
-                                    name="confirmPassword"
-                                    id="confirmPassword"
-                                    placeholder="Confirme su contraseña"
-                                    value={formData.confirmPassword}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    required
-                                    className="w-full px-4 py-2 pr-12 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#A4133C]"
-                                />
-
-                                <button
-                                    type="button"
-                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-[#A4133C] transition"
-                                    aria-label={
-                                        showConfirmPassword
-                                            ? "Ocultar contraseña"
-                                            : "Mostrar contraseña"
-                                    }
-                                >
-                                    {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-                                </button>
-                            </div>
-
-                            {errors.confirmPassword && (
-                                <p className="text-red-500 text-sm mt-1">
-                                    {errors.confirmPassword}
-                                </p>
-                            )}
-                        </div>
+                        <FormField id="confirmPassword" label="Confirmar contraseña" error={errors.confirmPassword}>
+                            <InputContrasenya
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                placeholder="Confirme su contraseña"
+                                value={formData.confirmPassword}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
+                        </FormField>
 
                         {/* PAÍS */}
-                        <div>
-
-                            <label
-                                className="block text-gray-700 font-semibold mb-1"
-                                htmlFor="country"
-                            >
-                                País
-                            </label>
-
+                        <FormField id="country" label="País" error={errors.country}>
                             <select
                                 name="country"
                                 id="country"
@@ -366,42 +300,22 @@ const Register = () => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 required
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#A4133C]"
+                                className={inputClass}
                             >
-
                                 <option value="">
                                     Seleccione un país
                                 </option>
 
                                 {countries.map((country) => (
-                                    <option
-                                        key={country}
-                                        value={country}
-                                    >
-                                        {country}
+                                    <option key={country.name} value={country.name}>
+                                        {country.name}
                                     </option>
                                 ))}
-
                             </select>
-
-                            {errors.country && (
-                                <p className="text-red-500 text-sm mt-1">
-                                    {errors.country}
-                                </p>
-                            )}
-
-                        </div>
+                        </FormField>
 
                         {/* TELÉFONO */}
-                        <div>
-
-                            <label
-                                className="block text-gray-700 font-semibold mb-1"
-                                htmlFor="phone"
-                            >
-                                Teléfono
-                            </label>
-
+                        <FormField id="phone" label="Teléfono" error={errors.phone}>
                             <input
                                 type="tel"
                                 name="phone"
@@ -410,34 +324,28 @@ const Register = () => {
                                 value={formData.phone}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                maxLength={9}
+                                inputMode="tel"
                                 required
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#A4133C]"
+                                className={inputClass}
                             />
-
-                            {errors.phone && (
-                                <p className="text-red-500 text-sm mt-1">
-                                    {errors.phone}
-                                </p>
-                            )}
-
-                        </div>
+                        </FormField>
 
                         {/* FOTO */}
-                        <div>
-
-                            <label
-                                className="block text-gray-700 font-semibold mb-2"
-                                htmlFor="photo"
-                            >
-                                Foto de perfil
-                                <span className="font-normal text-gray-500">
-                                    {" "} (opcional)
-                                </span>
-                            </label>
-
+                        <FormField
+                            id="photo"
+                            label={
+                                <>
+                                    Foto de perfil
+                                    <span className="font-normal text-gray-500">
+                                        {" "}(opcional)
+                                    </span>
+                                </>
+                            }
+                            error={errors.photo}
+                        >
                             <div className="flex items-center gap-3">
 
+                                {/* Este label hace de botón; el de arriba ya enlaza con el input */}
                                 <label
                                     htmlFor="photo"
                                     className="cursor-pointer bg-[#F480AD] hover:bg-[#e66b9a] text-black px-4 py-2 rounded-lg shadow transition font-medium"
@@ -446,9 +354,7 @@ const Register = () => {
                                 </label>
 
                                 <span className="text-sm text-gray-600 truncate">
-                                    {formData.photo
-                                        ? formData.photo.name
-                                        : "Ningún archivo seleccionado"}
+                                    {photoName || "Ningún archivo seleccionado"}
                                 </span>
 
                                 <input
@@ -460,13 +366,8 @@ const Register = () => {
                                     className="hidden"
                                 />
 
-                                {errors.photo && (
-                                    <p className="text-red-600 text-sm">{errors.photo}</p>
-                                )}
-
                             </div>
-
-                        </div>
+                        </FormField>
 
                         {/* BOTÓN */}
                         <button
@@ -492,7 +393,6 @@ const Register = () => {
                             >
                                 Inicia sesión
                             </Link>
-
                         </p>
 
                     </form>
@@ -509,4 +409,3 @@ const Register = () => {
 };
 
 export default Register;
-

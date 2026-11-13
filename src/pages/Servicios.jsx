@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+
+/*Componentes*/
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import BotonWhatsApp from "../components/BotonWhatsApp";
 
+/*Iconos*/
 import {
   FaBirthdayCake,
   FaGift,

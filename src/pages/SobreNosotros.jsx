@@ -1,9 +1,12 @@
 import { useEffect } from "react";
+
+/*Componentes*/
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
 import FraseImagen from "../components/Banner.jsx";
 
-import aboutBackground from '../assets/img/galletas.webp'; // <-- añade una imagen de fondo bonita
+/*Recursos*/
+import aboutBackground from '../assets/img/galletas.webp'; 
 
 function SobreNosotros() {
 

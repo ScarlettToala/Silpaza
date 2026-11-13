@@ -1,11 +1,16 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+/*Componentes*/
 import Header from "../components/Header.jsx";
-import { useNavigate} from "react-router-dom";
 import Producto from "../components/ProductoItem.jsx";
-import Audio from "../components/AudioPlayer.jsx";
-import Video from "../components/VideoPlayer.jsx";
 import Footer from "../components/Footer.jsx";
 import BotonWhatsApp from "../components/BotonWhatsApp";
+
+import Audio from "../components/AudioPlayer.jsx";
+import Video from "../components/VideoPlayer.jsx";
+
+
 
 /* =========================
    IMPORTACIONES DE RECURSOS
@@ -22,19 +27,15 @@ import videoWebm from "../assets/video/EjemploPastel2.webm";
      CATEGORÍAS Y PRODUCTOS
   ========================= */
 
-  import { categorias } from "../data/productosData.js";
+import { categorias } from "../data/productosData.js";
 
 function Productos() {
 
   const navigate = useNavigate();
 
-    useEffect(() => {
-  window.scrollTo(0, 0);
-}, []);
-
-
-
-  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
 
@@ -44,7 +45,7 @@ function Productos() {
           HEADER
       ========================= */}
 
-      <Header/>
+      <Header />
 
 
       {/* =========================
@@ -230,9 +231,9 @@ function Productos() {
           FOOTER
       ========================= */}
 
-      <Footer/>
+      <Footer />
 
-        <BotonWhatsApp />
+      <BotonWhatsApp />
     </div>
   );
 }

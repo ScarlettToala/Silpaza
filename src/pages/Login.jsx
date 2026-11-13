@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import HeaderLogIn from "../components/HeaderLogIn";
+import HeaderLogIn from "../components/Header";
 import Footer from "../components/Footer";
 
 import { FaEye, FaEyeSlash } from "react-icons/fa";

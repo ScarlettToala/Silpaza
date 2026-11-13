@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import NavLinks from "./NavLinks";
-import { FaInfoCircle, FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
 
 /*======== Ruta del Logo ========*/
@@ -17,19 +17,19 @@ export default function Header() {
      CARGAR IMÁGENES
   ========================= */
 
-useEffect(() => {
-  const imgLogo = new Image();
+  useEffect(() => {
+    const imgLogo = new Image();
 
-  imgLogo.src = logoImage;
+    imgLogo.src = logoImage;
 
-  imgLogo.onload = () => {
-    setLoading(false);
-  };
+    imgLogo.onload = () => {
+      setLoading(false);
+    };
 
-  imgLogo.onerror = () => {
-    setLoading(false);
-  };
-}, [logoImage]);
+    imgLogo.onerror = () => {
+      setLoading(false);
+    };
+  }, [logoImage]);
 
 
   /* =========================
@@ -127,23 +127,27 @@ useEffect(() => {
 
         <div className="hidden xl:flex items-center gap-4 2xl:gap-6">
 
-          <FaInfoCircle
-            className="
-              text-xl
-              text-black
-              hover:text-white
-              transition
-              cursor-pointer
-            "
-          />
-
-
           {user ? (
+            <>
+              <Link
+                to="/perfil"
+                className="
+                text-black
+                font-[Open_Sans]
+                text-base
+                2xl:text-lg
+                whitespace-nowrap
+                hover:text-white
+                transition
+              "
+              >
+                Ver perfil
+              </Link>
 
-            <button
-              onClick={handleLogoutConfirm}
-              aria-label="Cerrar sesión"
-              className="
+              <button
+                onClick={handleLogoutConfirm}
+                aria-label="Cerrar sesión"
+                className="
                 relative
                 text-[#0C0808]
                 font-[Open_Sans]
@@ -161,10 +165,10 @@ useEffect(() => {
 
                 hover:after:w-full
               "
-            >
-              Cerrar sesión
-            </button>
-
+              >
+                Cerrar sesión
+              </button>
+            </>
           ) : (
 
             <Link
@@ -258,14 +262,22 @@ useEffect(() => {
           {/* LOGIN / LOGOUT */}
 
           {user ? (
+            <>
+              <Link
+                to="/perfil"
+                onClick={() => setMenuAbierto(false)}
+                className="text-[#A4133C] font-[Open_Sans] font-semibold hover:text-black transition"
+              >
+                Ver perfil
+              </Link>
 
-            <button
-              onClick={() => {
-                setMenuAbierto(false);
-                handleLogoutConfirm();
-              }}
-              aria-label="Cerrar sesión"
-              className="
+              <button
+                onClick={() => {
+                  setMenuAbierto(false);
+                  handleLogoutConfirm();
+                }}
+                aria-label="Cerrar sesión"
+                className="
                 text-left
                 text-[#A4133C]
                 font-[Open_Sans]
@@ -273,10 +285,10 @@ useEffect(() => {
                 hover:text-black
                 transition
               "
-            >
-              Cerrar sesión
-            </button>
-
+              >
+                Cerrar sesión
+              </button>
+            </>
           ) : (
 
             <Link
