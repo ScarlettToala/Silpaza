@@ -11,13 +11,11 @@ import BotonWhatsApp from "../components/BotonWhatsApp";
    IMPORTACIONES DE RECURSOS
 ========================= */
 
-import logoImage from "../assets/img/LogooDEF.webp";
-
 import audioMp3 from "../assets/audio/AudioMC.mp3";
 import audioOgg from "../assets/audio/AudioMC.ogg";
 
-import videoMp4 from "../assets/video/Video.mp4";
-import videoWebm from "../assets/video/Video.webm";
+import videoMp4 from "../assets/video/EjemploPastel.mp4";
+import videoWebm from "../assets/video/EjemploPastel2.webm";
 
 
 /* =========================
@@ -26,7 +24,7 @@ import videoWebm from "../assets/video/Video.webm";
 
   import { categorias } from "../data/productosData.js";
 
-function Productos({ user, setUser }) {
+function Productos() {
 
   const navigate = useNavigate();
 
@@ -34,18 +32,6 @@ function Productos({ user, setUser }) {
   window.scrollTo(0, 0);
 }, []);
 
-  /* =========================
-     CERRAR SESIÓN
-  ========================= */
-
-  const handleLogout = () => {
-
-    localStorage.removeItem("userData");
-
-    setUser(null);
-
-    navigate("/");
-  };
 
 
   
@@ -58,11 +44,7 @@ function Productos({ user, setUser }) {
           HEADER
       ========================= */}
 
-      <Header
-        logoImage={logoImage}
-        onLogout={handleLogout}
-        user={user}
-      />
+      <Header/>
 
 
       {/* =========================
@@ -248,7 +230,7 @@ function Productos({ user, setUser }) {
           FOOTER
       ========================= */}
 
-      <Footer logo={logoImage} />
+      <Footer/>
 
         <BotonWhatsApp />
     </div>

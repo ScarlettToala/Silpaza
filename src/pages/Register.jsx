@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import HeaderLogIn from "../components/HeaderLogIn";
 import Footer from "../components/Footer";
-import logoImage from "../assets/img/LogooDEF.webp";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
 
@@ -192,7 +191,7 @@ const Register = () => {
         <div className="flex flex-col min-h-screen bg-[#fdfaf3]">
 
             {/* HEADER */}
-            <HeaderLogIn logoImage={logoImage} />
+            <HeaderLogIn />
 
             {/* CONTENIDO */}
             <main className="flex-1 flex items-center justify-center px-4 py-12">
@@ -503,7 +502,7 @@ const Register = () => {
             </main>
 
             {/* FOOTER */}
-            <Footer logo={logoImage} />
+            <Footer />
 
         </div>
     );

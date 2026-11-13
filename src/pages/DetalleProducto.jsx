@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Header from "../components/Header.jsx";
+import Footer from "../components/Footer.jsx";
 import Alergenos from "../components/Alergenos";
 import {
 FaPhoneAlt
@@ -9,7 +9,7 @@ FaPhoneAlt
 
 import { categorias } from "../data/productosData";
 
-function DetalleProducto({ user, setUser }) {
+function DetalleProducto() {
 
   const navigate = useNavigate();
 
@@ -19,17 +19,6 @@ function DetalleProducto({ user, setUser }) {
   useEffect(() => {
   window.scrollTo(0, 0);
 }, [id]);
-
-  /* =========================
-     CERRAR SESIÓN
-  ========================= */
-
-  const handleLogout = () => {
-    localStorage.removeItem("userData");
-    setUser(null);
-    navigate("/");
-  };
-
 
   /* =========================
      BUSCAR PRODUCTO
@@ -48,10 +37,7 @@ function DetalleProducto({ user, setUser }) {
     return (
       <div className="min-h-screen bg-[#fdfaf3] flex flex-col">
 
-        <Header
-          onLogout={handleLogout}
-          user={user}
-        />
+        <Header/>
 
         <main className="flex-1 flex flex-col items-center justify-center px-6">
 
@@ -92,10 +78,7 @@ function DetalleProducto({ user, setUser }) {
 
     <div className="bg-[#fdfaf3] min-h-screen flex flex-col">
 
-      <Header
-        onLogout={handleLogout}
-        user={user}
-      />
+      <Header/>
 
 
       <main className="flex-1 py-3 md:py-6 px-4 max-w-screen-lg mx-auto w-full">

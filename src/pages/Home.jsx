@@ -10,7 +10,7 @@ import Destacado from "../components/Destacarproducto.jsx";
 import SobreNosotros from "../components/SobreNosotros.jsx";
 import BotonWhatsApp from "../components/BotonWhatsApp.jsx";
 
-import logoImage from "../assets/img/LogooDEF.webp";
+/*=============== IMPORTACIONES DE IMAGENES =================*/
 import tarta2 from "../assets/img/Tarta2DEF.webp";
 import img1 from "../assets/img/CheesecakeNormalDEF.webp";
 import img2 from "../assets/img/RecetaLemonPieTartaDeLimonDEF.webp";
@@ -26,22 +26,14 @@ import {
 //DATA
 import { categorias } from "../data/productosData";
 
-function Home({ user, setUser }) {
+function Home() {
 
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-
-  const handleLogout = () => {
-    localStorage.removeItem("userData");
-    setUser(null);
-    navigate("/");
-  };
 
   //Producto destacado
   const productoDestacado = categorias .flatMap((categoria) => categoria.productos) .find((producto) => producto.id === 4);
 
   const images = [
-    logoImage,
     tarta2,
     img1,
     img2,
@@ -89,11 +81,7 @@ function Home({ user, setUser }) {
         Silpaza
       </h1>
 
-      <Header
-        logoImage={logoImage}
-        onLogout={handleLogout}
-        user={user}
-      />
+      <Header/>
 
       {/* HERO */}
       <FraseImagen
@@ -182,7 +170,7 @@ function Home({ user, setUser }) {
       {/* HISTORIA */}
       <SobreNosotros image={tartaEspecial} />
 
-      <Footer logo={logoImage} />
+      <Footer/>
 
     <BotonWhatsApp />
     </>

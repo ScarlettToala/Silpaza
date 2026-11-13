@@ -7,7 +7,11 @@ import {
 } from "react-icons/fa";
 import "../styles/Footer.scss";
 
-function Footer({ logo }) {
+/*======== Ruta del Logo ========*/
+import logoImagen from "../assets/img/LogooDEF.webp";
+
+function Footer() {
+  const logo = logoImagen;
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

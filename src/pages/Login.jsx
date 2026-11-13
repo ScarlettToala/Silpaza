@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import HeaderLogIn from "../components/HeaderLogIn";
 import Footer from "../components/Footer";
-import logoImage from "../assets/img/logooDEF.webp";
+
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
 
@@ -52,7 +52,7 @@ const Login = () => {
     <div className="flex flex-col min-h-screen bg-[#fdfaf3]">
 
       {/* HEADER */}
-      <HeaderLogIn logoImage={logoImage} />
+      <HeaderLogIn/>
 
       <h1 className="absolute w-px h-px overflow-hidden whitespace-nowrap border-0">
         Silpaza
@@ -180,7 +180,7 @@ const Login = () => {
       </main>
 
       {/* FOOTER */}
-      <Footer logo={logoImage} />
+      <Footer/>
 
     </div>
   );

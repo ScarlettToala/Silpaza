@@ -11,18 +11,7 @@ import {
   FaPhoneAlt
 } from "react-icons/fa";
 
-import logoImage from "../assets/img/LogooDEF.webp";
-
-function Servicios({ user, setUser }) {
-
-  /* =========================
-  CERRAR SESIÓN
-  ========================= */
-
-  const handleLogout = () => {
-    localStorage.removeItem("userData");
-    setUser(null);
-  };
+function Servicios() {
 
   /* =========================
   SERVICIOS
@@ -58,13 +47,7 @@ function Servicios({ user, setUser }) {
     <div className="min-h-screen bg-[#fdfaf3] flex flex-col">
 
       {/* HEADER */}
-
-      <Header
-        logoImage={logoImage}
-        onLogout={handleLogout}
-        user={user}
-      />
-
+      <Header/>
 
       <main className="flex-1">
 
@@ -372,7 +355,7 @@ function Servicios({ user, setUser }) {
 
       {/* FOOTER */}
 
-      <Footer logo={logoImage} />
+      <Footer />
 
       <BotonWhatsApp />
 

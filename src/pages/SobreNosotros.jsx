@@ -1,21 +1,11 @@
-import { useNavigate } from "react-router-dom";
-import { useRef, useState, useEffect } from "react";
-import ContactForm from "../components/ContactForm";
+import { useEffect } from "react";
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
 import FraseImagen from "../components/Banner.jsx";
 
-import logoImage from '../assets/img/logooDEF.webp';
 import aboutBackground from '../assets/img/galletas.webp'; // <-- añade una imagen de fondo bonita
 
-function SobreNosotros({ user, setUser }) {
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.removeItem("userData");
-    setUser(null);
-    navigate("/");
-  };
+function SobreNosotros() {
 
     useEffect(() => {
     window.scrollTo(0, 0);
@@ -23,11 +13,7 @@ function SobreNosotros({ user, setUser }) {
   return (
     <>
       <div className="bg-amber-50">
-        <Header
-          logoImage={logoImage}
-          onLogout={handleLogout}
-          user={user}
-        />
+        <Header/>
 
         {/* SECCIÓN HERO CON FRASE E IMAGEN */}
         <FraseImagen
@@ -94,7 +80,7 @@ function SobreNosotros({ user, setUser }) {
           </div>
         </div>
 
-        <Footer logo={logoImage} />
+        <Footer />
       </div>
     </>
   );

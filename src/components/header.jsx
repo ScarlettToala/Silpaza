@@ -4,9 +4,11 @@ import NavLinks from "./NavLinks";
 import { FaInfoCircle, FaBars, FaTimes } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
 
-import logoImage from "../assets/img/LogooDEF.webp";
+/*======== Ruta del Logo ========*/
+import logo from "../assets/img/LogooDEF.webp";
 
-export default function Header({ logoImage }) {
+export default function Header() {
+  const logoImage = logo;
   const { user, logout } = useAuth();
   const [menuAbierto, setMenuAbierto] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -251,14 +253,6 @@ useEffect(() => {
 
 
           <hr className="border-gray-200" />
-
-
-          {/* INFO */}
-
-          <div className="flex items-center gap-2 text-gray-700">
-            <FaInfoCircle />
-            <span>Información</span>
-          </div>
 
 
           {/* LOGIN / LOGOUT */}

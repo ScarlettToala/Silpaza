@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function HeaderLogIn({ logoImage }) {
+/*======== Ruta del Logo ========*/
+import logo from "../assets/img/LogooDEF.webp";
+
+export default function HeaderLogIn() {
+    const logoImage = logo;
     return (
         <header className="bg-[#F480AD] text-black shadow-md px-6 py-6 relative ">
             <div className="container mx-auto flex items-center justify-between">
