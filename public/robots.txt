@@ -2,12 +2,11 @@
 # Regla 1: Per a TOTS els robots (*) 
 User-agent: *
 Disallow: /login
-Disallow: /servicios
-Allow: /home
-Allow: /sobrenosotros
-Allow: /productos
+Disallow: /register
+Disallow: /perfil
+Allow: /
 # Regla 2: Específic per al bot de Google (Googlebot) 
 User-agent: Googlebot 
 Disallow: /cerca-interna/ 
 # Indiquem on està el mapa 
-Sitemap: https://www.localhost:5173.com/public/sitemap.xml
+Sitemap:  https://silpaza-bka4.vercel.app/sitemap.xml
