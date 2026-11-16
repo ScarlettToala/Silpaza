@@ -1,13 +1,11 @@
 import tartaChocolate from "../assets/img/tartaChocolate.webp";
-import tresLeches from "../assets/img/tresLechesPromocionalDEF.webp";
-import volteado from "../assets/img/volteadoPinaPromo.webp";
-
-import galletaChocolate from "../assets/img/brownieCookiesPromo.webp";
-import galletaAvena from "../assets/img/galletasDeAvena.webp";
-import galletaMantequilla from "../assets/img/galletasDeMantequilla.webp";
-
-import panMasaMadre from "../assets/img/panDeMasaMadrePromo.webp";
-import croissant from "../assets/img/croissantMantequilla.webp";
+import tresLeches from "../assets/img/TresLechesPromocionalDEF.webp";
+import volteado from "../assets/img/VolteadoPinaPromo.webp";
+import galletaChocolate from "../assets/img/BrownieCookiesPromo.webp";
+import galletaAvena from "../assets/img/GalletasDeAvena.webp";
+import galletaMantequilla from "../assets/img/GalletasDeMantequilla.webp";
+import panMasaMadre from "../assets/img/PanDeMasaMadrePromo.webp";
+import croissant from "../assets/img/CroissantMantequilla.webp";
 
 import {
   FaBirthdayCake,

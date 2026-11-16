@@ -6,7 +6,7 @@ import Footer from "../components/Footer.jsx";
 import FraseImagen from "../components/Banner.jsx";
 
 /*Recursos*/
-import aboutBackground from '../assets/img/galletas.webp'; 
+import aboutBackground from '../assets/img/Galletas.webp'; 
 
 function SobreNosotros() {
 

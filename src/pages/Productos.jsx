@@ -6,7 +6,6 @@ import Header from "../components/Header.jsx";
 import Producto from "../components/ProductoItem.jsx";
 import Footer from "../components/Footer.jsx";
 import BotonWhatsApp from "../components/BotonWhatsApp";
-
 import Audio from "../components/AudioPlayer.jsx";
 import Video from "../components/VideoPlayer.jsx";
 
