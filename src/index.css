@@ -1,3 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Leckerli+One&family=Pattaya&display=swap');
 
 @import 'tailwindcss';
+
+@theme {
+  --font-leckerli: "Leckerli One", cursive;
+  --font-pattaya: "Pattaya", sans-serif;
+}

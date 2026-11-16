@@ -1,166 +1,188 @@
-# Silpaza - Frontend de tienda online
+# 🧁 Silpaza — Pastelería online
 
-Aplicación frontend desarrollada con **React** y **Vite** para una tienda de productos dulces y repostería. Por ahora el proyecto se centra en la parte visual y en la experiencia de usuario: el catálogo y la gestión básica de usuarios se simulan con datos locales en el navegador.
+Frontend de una tienda de repostería artesanal construido con **React 19**, **Vite 7** y **Tailwind CSS 4**. Incluye catálogo por categorías, ficha detallada de producto con alérgenos, registro e inicio de sesión, área de perfil protegida y una interfaz totalmente responsive.
 
-## Índice
+> 🔗 **Demo en vivo:** _[añade aquí la URL de Vercel/Netlify]_
+> 🎬 **Vídeo de demostración:** _[añade aquí el enlace a YouTube/Vimeo]_
 
-1. [Descripción del proyecto](#1-descripción-del-proyecto)
-2. [Estado actual](#2-estado-actual)
-3. [Tecnologías utilizadas](#3-tecnologías-utilizadas)
-4. [Instalación y arranque](#4-instalación-y-arranque)
-5. [Estructura del proyecto](#5-estructura-del-proyecto)
-6. [Arquitectura general](#6-arquitectura-general)
-7. [Modelo de datos](#7-modelo-de-datos)
-8. [Flujo de la aplicación](#8-flujo-de-la-aplicación)
-   - [Página principal](#página-principal)
-   - [Productos](#productos)
-   - [Detalle del producto](#detalle-del-producto)
-   - [Login y registro](#login-y-registro)
-   - [Rutas protegidas](#rutas-protegidas)
-9. [Gestión de usuario y sesión](#9-gestión-de-usuario-y-sesión)
-10. [Rutas principales](#10-rutas-principales)
-11. [Limitaciones actuales](#11-limitaciones-actuales)
-12. [Mejoras futuras](#12-mejoras-futuras)
-13. [Conclusión](#13-conclusión)
+![Captura de Silpaza](src/assets/img/Silpaza.png)
+
+> [!NOTE]
+> Este es un proyecto **solo frontend**, creado con fines de aprendizaje y portfolio. El catálogo vive en un archivo local y la autenticación está **simulada** con `localStorage`. Consulta [Limitaciones conocidas](#-limitaciones-conocidas).
 
 ---
 
-## 1. Descripción del proyecto
+## 📑 Índice
 
-Silpaza es una tienda de repostería y dulces con estructura de e-commerce. La aplicación permite:
+1. [Funcionalidades](#-funcionalidades)
+2. [Stack tecnológico](#-stack-tecnológico)
+3. [Empezar](#-empezar)
+4. [Scripts disponibles](#-scripts-disponibles)
+5. [Estructura del proyecto](#-estructura-del-proyecto)
+6. [Arquitectura](#-arquitectura)
+7. [Modelo de datos](#-modelo-de-datos)
+8. [Autenticación y sesión](#-autenticación-y-sesión)
+9. [Rutas](#-rutas)
+10. [Estilos y diseño](#-estilos-y-diseño)
+11. [Accesibilidad y SEO](#-accesibilidad-y-seo)
+12. [Limitaciones conocidas](#-limitaciones-conocidas)
+13. [Roadmap](#-roadmap)
+14. [Despliegue](#-despliegue)
+15. [Autoría](#-autoría)
 
-- Ver la página principal de la marca.
-- Navegar por distintas categorías de productos.
-- Consultar la información detallada de cada producto.
-- Registrarse e iniciar sesión.
-- Mantener la sesión del usuario mediante `localStorage`.
-- Disfrutar de una interfaz moderna y responsive.
+---
 
-Ahora mismo el catálogo tiene pocos productos. Se podría ampliar de dos formas:
+## ✨ Funcionalidades
 
-- Mostrar un máximo de 5 productos por categoría y crear una página para cada una.
-- Mostrar más productos en la misma página (por ejemplo, con un botón "Ver más").
+- **Página de inicio** con hero, servicios, collage de productos, producto destacado, llamada a la acción e historia de la marca.
+- **Catálogo** organizado por categorías (pasteles, galletas y panes).
+- **Ficha de producto** con descripción, características y **alérgenos** con iconos.
+- **Registro e inicio de sesión** con validación de formularios (email, contraseña, confirmación, teléfono por país) y foto de perfil opcional.
+- **Sesión persistente**: el usuario sigue identificado al recargar la página.
+- **Ruta protegida** (`/perfil`): redirige a `/login` si no hay sesión.
+- **Botón flotante de WhatsApp** y llamada directa para hacer pedidos.
+- **Contenido multimedia**: reproductor de audio y de vídeo.
+- **Página 404** personalizada.
+- **Diseño responsive** (móvil, tablet y escritorio).
 
-## 2. Estado actual
+## 🛠 Stack tecnológico
 
-La aplicación trabaja con:
+| Tecnología | Versión | Uso |
+|:--|:--|:--|
+| [React](https://react.dev) | 19 | Interfaz de usuario |
+| [Vite](https://vite.dev) | 7 | Entorno de desarrollo y build |
+| [React Router](https://reactrouter.com) | 7 | Enrutado y rutas protegidas |
+| [Tailwind CSS](https://tailwindcss.com) | 4 | Estilos utilitarios (vía `@tailwindcss/vite`) |
+| [Sass](https://sass-lang.com) | 1.x | Estilos específicos (`.scss`) |
+| [React Icons](https://react-icons.github.io/react-icons/) | 5 | Iconografía |
+| [ESLint](https://eslint.org) | 9 | Calidad del código |
 
-- Un archivo de datos local en JavaScript: `src/data/productosData.js`.
-- Un catálogo de productos almacenado como un array de objetos.
-- Usuarios y sesión guardados en el navegador mediante `localStorage`.
+## 🚀 Empezar
 
-Por tanto, la "base de datos" es una constante estática en el frontend, no una base de datos real ni un servidor backend. El inicio de sesión se simula con `localStorage`: no hay autenticación real ni seguridad apta para producción.
-
-## 3. Tecnologías utilizadas
-
-| Tecnología | Uso |
-|:--|:--|
-| React 19 | Interfaz de usuario |
-| Vite 7 | Entorno de desarrollo y empaquetado |
-| React Router DOM | Navegación entre páginas |
-| Tailwind CSS | Estilos con clases utilitarias |
-| Sass | Estilos personalizados (`.scss`) |
-| React Icons | Iconos |
-| ESLint | Calidad y revisión del código |
-
-## 4. Instalación y arranque
-
-1. Abre la terminal en la raíz del proyecto.
-2. Instala las dependencias:
+**Requisitos:** Node.js 20 o superior y npm.
 
 ```bash
+# 1. Clona el repositorio
+git clone https://github.com/<tu-usuario>/Silpaza.git
+cd Silpaza
+
+# 2. Instala las dependencias
 npm install
-```
 
-3. Inicia el servidor de desarrollo:
-
-```bash
+# 3. Arranca el servidor de desarrollo
 npm run dev
 ```
 
-4. Abre en el navegador la URL que te indique Vite.
+Abre en el navegador la URL que muestre Vite (normalmente `http://localhost:5173`).
 
-## 5. Estructura del proyecto
+## 📜 Scripts disponibles
+
+| Comando | Descripción |
+|:--|:--|
+| `npm run dev` | Servidor de desarrollo con recarga en caliente |
+| `npm run build` | Genera la versión de producción en `dist/` |
+| `npm run preview` | Sirve localmente el build de producción |
+| `npm run lint` | Revisa el código con ESLint |
+
+## 🗂 Estructura del proyecto
 
 ```text
-src/
-├── App.jsx
-├── App.css
-├── index.css
-├── main.jsx
-├── assets/
-│   ├── audio/
-│   ├── img/
-│   └── video/
-├── components/
-│   ├── alergenos.jsx
-│   ├── AudioPlayer.jsx
-│   ├── Banner.jsx
-│   ├── BotonWhatsApp.jsx
-│   ├── ContactForm.jsx
-│   ├── destacarproducto.jsx
-│   ├── footer.jsx
-│   ├── header.jsx
-│   ├── headerLogIn.jsx
-│   ├── imagenCollage.jsx
-│   ├── NavLinks.jsx
-│   ├── productoItem.jsx
-│   ├── servicios.jsx
-│   └── sobreNosotros.jsx
-├── data/
-│   └── productosData.js
-├── pages/
-│   ├── DetalleProducto.jsx
-│   ├── Home.jsx
-│   ├── Login.jsx
-│   ├── PaginaError.jsx
-│   ├── Productos.jsx
-│   ├── Register.jsx
-│   ├── Servicios.jsx
-│   ├── SobreNosotros.jsx
-│   ├── Welcome.jsx
-│   └── ...
-└── styles/
-    ├── _variables.scss
-    ├── Footer.scss
-    ├── Producto.scss
-    └── ProductoColores.scss
+.
+├── public/                  # Archivos estáticos (robots.txt, sitemap.xml)
+├── src/
+│   ├── assets/
+│   │   ├── audio/
+│   │   ├── img/             # Imágenes en formato WebP
+│   │   └── video/
+│   ├── components/          # Componentes reutilizables
+│   │   ├── Header.jsx
+│   │   ├── Footer.jsx
+│   │   ├── Banner.jsx
+│   │   ├── Servicios.jsx
+│   │   ├── ImagenCollage.jsx
+│   │   ├── Destacarproducto.jsx
+│   │   ├── ProductoItem.jsx
+│   │   ├── Alergenos.jsx
+│   │   ├── ContactForm.jsx
+│   │   ├── FormField.jsx
+│   │   ├── InputContrasenya.jsx
+│   │   ├── ProtectedRoute.jsx
+│   │   └── ...
+│   ├── context/
+│   │   └── AuthContext.jsx  # Estado global de sesión
+│   ├── data/
+│   │   └── productosData.js # Catálogo (datos locales)
+│   ├── pages/               # Una por ruta
+│   │   ├── Home.jsx
+│   │   ├── Productos.jsx
+│   │   ├── DetalleProducto.jsx
+│   │   ├── Servicios.jsx
+│   │   ├── SobreNosotros.jsx
+│   │   ├── Login.jsx
+│   │   ├── Register.jsx
+│   │   ├── Perfil.jsx
+│   │   └── PaginaError.jsx
+│   ├── styles/              # Estilos Sass
+│   ├── App.jsx              # Definición de rutas
+│   ├── main.jsx             # Punto de entrada
+│   └── index.css            # Tailwind + tema (@theme)
+├── index.html
+├── vite.config.js
+└── package.json
 ```
 
-## 6. Arquitectura general
+## 🏗 Arquitectura
 
-La aplicación sigue una arquitectura frontend sencilla:
+```text
+main.jsx
+  └─ App.jsx
+       └─ <AuthProvider>              ← estado de sesión disponible en toda la app
+            └─ <Router>
+                 ├─ Rutas públicas    (Home, Productos, Detalle, Login...)
+                 └─ <ProtectedRoute>  ← exige sesión
+                      └─ Perfil
+```
 
-1. `App.jsx` define las rutas de navegación.
-2. Cada página vive en `src/pages`.
-3. Los componentes reutilizables están en `src/components`.
-4. Los datos del catálogo están en `src/data/productosData.js`.
-5. La sesión y los usuarios se guardan en el navegador con `localStorage`.
+Principios que sigue el proyecto:
 
-## 7. Modelo de datos
+1. **Una página por ruta** en `src/pages`, que compone componentes reutilizables.
+2. **Estado global mínimo**: solo la sesión, mediante Context API (`useAuth()`).
+3. **Datos separados de la interfaz**: el catálogo está en `src/data`, de modo que sustituirlo por una API solo afectaría a ese punto.
+4. **Componentes de formulario reutilizables** (`FormField`, `InputContrasenya`) para evitar repetición.
 
-El catálogo se organiza en una constante llamada `categorias`, y cada categoría contiene una colección de productos.
+## 🧩 Modelo de datos
 
-Cada producto tiene estos campos:
+El catálogo es un array `categorias`; cada categoría contiene sus productos.
+
+**Categoría**
 
 | Campo | Descripción |
 |:--|:--|
 | `id` | Identificador único |
-| `image` | Imagen del producto |
-| `nombre` | Nombre del producto |
-| `descripcion` | Descripción corta |
-| `descripcionLarga` | Descripción completa |
-| `caracteristicas` | Lista de características |
-| `alergenos` | Lista de alérgenos |
+| `nombre` | Nombre de la categoría |
+| `descripcion` | Texto descriptivo |
+| `color` | Color de la tarjeta |
+| `icono` | Componente de icono (React Icons) |
+| `productos` | Lista de productos |
 
-Ejemplo de estructura:
+**Producto**
+
+| Campo | Descripción |
+|:--|:--|
+| `id` | Identificador único (global, usado en la URL) |
+| `image` | Imagen importada |
+| `nombre` | Nombre del producto |
+| `descripcion` | Descripción corta (listado) |
+| `descripcionLarga` | Descripción completa (ficha) |
+| `caracteristicas` | Lista de características |
+| `alergenos` | Lista de alérgenos (`gluten`, `lacteos`, `soja`...) |
 
 ```js
 export const categorias = [
   {
     id: 1,
     nombre: "Pasteles",
-    descripcion: "Tartas y bizcochos ...",
+    descripcion: "Tartas y bizcochos elaborados para tus celebraciones.",
     productos: [
       {
         id: 1,
@@ -168,106 +190,112 @@ export const categorias = [
         descripcion: "...",
         descripcionLarga: "...",
         caracteristicas: ["..."],
-        alergenos: ["gluten", "lacteos", "soja"]
-      }
-    ]
-  }
+        alergenos: ["gluten", "lacteos", "soja"],
+      },
+    ],
+  },
 ];
 ```
 
-> [!IMPORTANT]
-> Aunque el proyecto simula una base de datos con un JSON en una constante, esto no sustituye a una base de datos real. Como se trabaja con objetos y arrays de JavaScript, en el futuro sería fácil migrar a:
->
-> - una API REST
-> - Firebase
-> - Supabase
-> - MongoDB
-> - MySQL o PostgreSQL
+> [!TIP]
+> Al ser objetos y arrays de JavaScript, migrar a una API REST, Supabase, Firebase o una base de datos SQL/NoSQL solo requiere cambiar el origen de los datos.
 
-## 8. Flujo de la aplicación
+## 🔐 Autenticación y sesión
 
-### Página principal
+La autenticación está **simulada en el navegador**:
 
-La ruta `/home` muestra, en este orden:
-
-- Header
-- Banner promocional
-- Servicios
-- Collage de productos
-- Destacado del día
-- Historia de la marca
-- Footer
-
-### Productos
-
-La ruta `/productos` muestra todas las categorías y sus productos en formato catálogo.
-
-### Detalle del producto
-
-La ruta `/detalleProducto/:id` muestra la información completa del producto seleccionado.
-
-### Login y registro
-
-- `/login` permite iniciar sesión.
-- `/register` permite crear un usuario nuevo.
-- Los datos se guardan en `localStorage` bajo las claves `userData` (usuario con sesión activa) y `users` (usuarios registrados).
-
-### Rutas protegidas
-
-Con `react-router-dom`, la aplicación redirige al usuario si no ha iniciado sesión.
-
-## 9. Gestión de usuario y sesión
-
-La sesión se gestiona con:
-
-- `useState` en `App.jsx`.
-- Almacenamiento en `localStorage`.
-
-Ejemplo de la lógica:
-
-```js
-const savedUser = JSON.parse(localStorage.getItem("userData"));
-if (savedUser) setUser(savedUser);
-```
-
-Así, el usuario sigue identificado aunque recargue la página o cierre el navegador, hasta que cierre sesión o se borre el almacenamiento.
-
-## 10. Rutas principales
-
-| Ruta | Descripción |
+| Clave de `localStorage` | Contenido |
 |:--|:--|
-| `/` | Redirección inicial según si el usuario está logueado |
-| `/login` | Inicio de sesión |
-| `/register` | Registro de usuario |
-| `/home` | Página principal |
-| `/productos` | Catálogo completo |
-| `/detalleProducto/:id` | Detalle de un producto |
-| `/sobrenosotros` | Información de la empresa |
-| `/servicios` | Servicios y oferta |
-| `*` | Página de error |
+| `users` | Lista de usuarios registrados |
+| `userData` | Usuario con la sesión activa (sin contraseña) |
 
-## 11. Limitaciones actuales
+Flujo:
+
+1. **Registro**: se valida el formulario, se comprueba que el email no exista y se guarda el usuario en `users`. Después se inicia sesión automáticamente.
+2. **Login**: se busca un usuario que coincida con email y contraseña en `users`.
+3. **Sesión**: `AuthContext` expone `user`, `login()` y `logout()`. Al guardar la sesión se **elimina la contraseña** del objeto.
+4. **Persistencia**: `AuthContext` lee `userData` al arrancar, así que la sesión sobrevive a recargas.
+5. **Protección**: `ProtectedRoute` renderiza la ruta hija si hay usuario; si no, redirige a `/login`.
 
 > [!WARNING]
-> Este proyecto es solo un frontend. No debe usarse en producción con datos reales de usuarios.
+> Las contraseñas de los usuarios registrados se almacenan **en texto plano** en `localStorage`, accesible desde las herramientas del navegador. Es válido para una demo, **nunca** para producción. **No introduzcas datos ni contraseñas reales.**
 
-- No hay backend real.
-- Los productos están simulados con un JSON constante.
-- La autenticación es local y no es segura: los datos de los usuarios están en `localStorage`, donde cualquiera puede leerlos desde el navegador.
-- Está pensado como base para conectar después una API o una base de datos real.
+## 🧭 Rutas
 
-## 12. Mejoras futuras
+| Ruta | Acceso | Descripción |
+|:--|:--|:--|
+| `/` | Pública | Redirige a `/home` |
+| `/home` | Pública | Página principal |
+| `/productos` | Pública | Catálogo completo por categorías |
+| `/detalleProducto/:id` | Pública | Ficha de un producto |
+| `/servicios` | Pública | Servicios y contacto |
+| `/sobrenosotros` | Pública | Historia de la marca |
+| `/login` | Pública | Inicio de sesión |
+| `/register` | Pública | Creación de cuenta |
+| `/perfil` | 🔒 Protegida | Datos del usuario y cierre de sesión |
+| `*` | Pública | Página de error 404 |
 
-- [ ] Migrar los productos a una API REST.
-- [ ] Conectar un backend con MongoDB, MySQL o PostgreSQL.
-- [ ] Añadir autenticación real con JWT o sesiones seguras.
-- [ ] Crear un panel de administración para gestionar productos.
-- [ ] Guardar imágenes y datos de productos en una base de datos.
-- [ ] Ampliar el catálogo y crear una página por categoría.
+## 🎨 Estilos y diseño
 
-## 13. Conclusión
+- **Tailwind CSS 4** para la mayoría de estilos. La configuración se hace en `src/index.css` con la directiva `@theme` (no hay `tailwind.config.js`).
+- **Tipografías** de Google Fonts: _Leckerli One_ y _Pattaya_ para títulos, _Open Sans_ para el texto.
+- **Sass** para estilos específicos de producto y footer, con variables en `_variables.scss`.
+- **Paleta**: tonos crema (`#FDFAF3`, `#FAEDCD`) y granates (`#A4133C`, `#AE043D`).
+- **Imágenes** optimizadas en WebP.
 
-Silpaza funciona como un frontend completo de tienda online de repostería, con catálogo visual y un flujo de usuario básico. Su ventaja es que ya tiene una base estructural sólida para conectarse más adelante a una base de datos real o a una API de producción.
+## ♿ Accesibilidad y SEO
 
-# Video Demo
-[![Demo de Silpaza](src/assets/img/Silpaza.png)](src/assets/video/SilpazaDemo.mp4)
+- `lang="es"` en el documento y `meta description`.
+- Un `h1` por página (oculto visualmente en Home y Login).
+- Iconos decorativos con `aria-hidden` y botones con `aria-label` (por ejemplo, mostrar/ocultar contraseña).
+- Etiquetas `label` asociadas a los campos de los formularios.
+- `robots.txt` y `sitemap.xml` incluidos en `public/`.
+
+## ⚠️ Limitaciones conocidas
+
+- **Sin backend**: no hay base de datos ni API; el catálogo es una constante en el frontend.
+- **Autenticación no segura**: ver el aviso en [Autenticación y sesión](#-autenticación-y-sesión).
+- **Sin carrito ni pasarela de pago**: los pedidos se hacen por teléfono o WhatsApp.
+- **Formulario de contacto de demostración**: no envía los datos a ningún servicio.
+- **Sin tests automatizados**.
+- **Catálogo reducido** (3 categorías y 8 productos).
+
+## 🗺 Roadmap
+
+- [ ] Desplegar la demo y enlazarla en este README
+- [ ] Carrito de la compra (Context + `localStorage`)
+- [ ] Conectar un backend real (Supabase / Firebase / API propia)
+- [ ] Autenticación segura (JWT o sesiones, contraseñas con hash)
+- [ ] Panel de administración de productos
+- [ ] Buscador y filtros por categoría o alérgeno
+- [ ] Envío real del formulario de contacto (Formspree / EmailJS)
+- [ ] Tests con Vitest y React Testing Library
+- [ ] Página por categoría y paginación / "Ver más"
+- [ ] Optimizar el peso de los vídeos (alojarlos fuera del repositorio)
+
+## ☁️ Despliegue
+
+Al ser una SPA con React Router, el hosting debe redirigir todas las rutas a `index.html`.
+
+**Vercel / Netlify**
+
+1. Importa el repositorio.
+2. Build command: `npm run build`
+3. Output directory: `dist`
+4. **Vercel**: añade un `vercel.json` en la raíz del proyecto con:
+   ```json
+   { "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }] }
+   ```
+5. **Netlify**: añade un archivo `public/_redirects` con `/* /index.html 200`.
+
+> [!IMPORTANT]
+> Los nombres de archivo distinguen mayúsculas y minúsculas en servidores Linux. Un import como `../components/Header` solo funciona si el archivo se llama exactamente `Header.jsx`.
+
+## 👩‍💻 Autoría
+ 
+Proyecto creado por **Scarlett Toala**.
+ 
+- 💼 LinkedIn: _[Scarlett Toala](https://www.linkedin.com/in/scarletttoala/)_
+- 🐙 GitHub: _[Scarlett Toala](https://github.com/ScarlettToala)_
+- ✉️ Contacto: _[sctoala@gmail.com](mailto:sctoala@gmail.com)_
+ 

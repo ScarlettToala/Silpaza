@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
@@ -26,13 +25,6 @@ import {
 //DATA
 import { categorias } from "../data/productosData";
 
-function Home() {
-
-  const [loading, setLoading] = useState(true);
-
-  //Producto destacado
-  const productoDestacado = categorias .flatMap((categoria) => categoria.productos) .find((producto) => producto.id === 4);
-
   const images = [
     tarta2,
     img1,
@@ -40,6 +32,13 @@ function Home() {
     img3,
     galletas,
   ];
+
+  //Producto destacado
+  const productoDestacado = categorias .flatMap((categoria) => categoria.productos) .find((producto) => producto.id === 4);
+
+function Home() {
+
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
 
