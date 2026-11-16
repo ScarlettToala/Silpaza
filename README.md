@@ -2,8 +2,8 @@
 
 Frontend de una tienda de repostería artesanal construido con **React 19**, **Vite 7** y **Tailwind CSS 4**. Incluye catálogo por categorías, ficha detallada de producto con alérgenos, registro e inicio de sesión, área de perfil protegida y una interfaz totalmente responsive.
 
-> 🔗 **Demo en vivo:** _[añade aquí la URL de Vercel/Netlify]_
-> 🎬 **Vídeo de demostración:** _[añade aquí el enlace a YouTube/Vimeo]_
+> 🔗 **Demo en vivo:** _[Silpaza](https://github.com/ScarlettToala/Silpaza/tree/main/src/components)_
+> 🎬 **Vídeo de demostración:** _[VideoDemo](src/assets/video/SilpazaDemo.mp4)_
 
 ![Captura de Silpaza](src/assets/img/Silpaza.png)
 
