@@ -1,4 +1,4 @@
-import tartaChocolate from "../assets/img/tartaChocolate.webp";
+import tartaChocolate from "../assets/img/TartaChocolate.webp";
 import tresLeches from "../assets/img/TresLechesPromocionalDEF.webp";
 import volteado from "../assets/img/VolteadoPinaPromo.webp";
 import galletaChocolate from "../assets/img/BrownieCookiesPromo.webp";
